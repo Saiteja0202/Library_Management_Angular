@@ -1,0 +1,19 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+
+    <button class="close-btn" (click)="closeDialog()">×</button>
+
+    <img [src]="book.bookImage" alt="{{ book.bookName }}" width="120" />
+    <h2>{{ book.bookName }}</h2>
+
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Genre:</strong> {{ book.genre }}</p>
+    <p><strong>Year Published:</strong> {{ book.yearPublished }}</p>
+    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p><strong>Available Copies:</strong> {{ book.availableCopies }}</p>
+
+    <button (click)="borrowBook()" class="borrow-btn">
+      Borrow Book
+    </button>
+  </div>
+</div>

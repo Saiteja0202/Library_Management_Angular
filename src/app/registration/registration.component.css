@@ -1,0 +1,91 @@
+/* General container styling */
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #f0f4ff, #ffffff);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Card title styling */
+  h2 {
+    font-weight: 600;
+    font-size: 28px;
+    color: #3178c6;
+    margin-bottom: 20px;
+  }
+  
+  /* Label styling */
+  label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+  }
+  
+  /* Input fields */
+  input.form-control {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  input.form-control:focus {
+    border-color: #3178c6;
+    box-shadow: 0 0 6px rgba(49, 120, 198, 0.3);
+    outline: none;
+  }
+  
+  /* Button styling */
+  button.btn-primary {
+    background-color: #3178c6;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+  }
+  
+  button.btn-primary:disabled {
+    background-color: #8eb3e5;
+    cursor: not-allowed;
+  }
+  
+  button.btn-primary:hover:not(:disabled) {
+    background-color: #245a98;
+  }
+  
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .flex-fill {
+    flex: 1 1 0;
+  }
+  
+  @media (max-width: 768px) {
+    .d-flex {
+      flex-direction: column;
+    }
+  }
+
+  .space-down{
+    margin-bottom: 20px;
+  }
+
+  .btn-primary:hover{
+    cursor: pointer;
+  }
+
+  .alert-danger{
+    color: red;
+  }
+  
+  
+  

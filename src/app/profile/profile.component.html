@@ -1,0 +1,110 @@
+<div class="profile-container">
+    <div class="main-container">
+        <h1 style="display: flex; justify-content: center;">{{ profile.name }}</h1>
+        
+        <!-- Profile View Mode -->
+        <div style="display: flex; justify-content: space-between;">
+            <div style="margin-left: 50px;">
+                <section *ngIf="!isEditMode" class="profile-display">
+                    <h2 class="section-title">Member Information</h2>
+                    <div class="info-grid">
+                        <div><strong>Name:</strong> {{ profile.name }}</div>
+                        <div><strong>Email:</strong> {{ profile.email }}</div>
+                        <div><strong>Address:</strong> {{ profile.address }}</div>
+                        <div><strong>Phone Number:</strong> {{ profile.phone_number }}</div>
+                        <div style="display: flex; justify-content: center;">
+                            <button class="btn common-button" (click)="toggleEditMode()">Update Profile</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Non-editable Info -->
+            <div style="margin-right: 50px;">
+                <section class="membership-info">
+                    <h2 class="section-title">Other Information</h2>
+                    <p><strong>Borrowing Limit:</strong> {{ profile.borrowingLimit }} Books</p>
+                    <p>
+                        <strong>Membership Status:</strong>
+                        <span [ngClass]="{ 'highlight': profile.membershipStatus === 'Prime' }">{{ profile.membershipStatus }}</span>
+                    </p>
+                    <p *ngIf="profile.membershipStatus === 'Prime'">
+                        <strong>Membership Expiry Date:</strong> {{ profile.membershipExpiryDate }}
+                    </p>
+                    <p><strong>Username:</strong> {{ profile.username }}</p>
+                    
+                    <div style="display: flex; justify-content: center;">
+                        <button class="btn common-button" (click)="togglePasswordUpdate()">Update Password</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+      
+        <!-- Edit Modal -->
+        <section *ngIf="isEditMode" class="modal-backdrop">
+            <div class="modal">
+                <button class="close-btn" (click)="toggleEditMode()">×</button>
+                <h3 class="modal-title">Edit Profile</h3>
+                <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="form-layout">
+                    <div class="form-group">
+                        <label for="name">Name: <span *ngIf="profileForm.controls['name']?.invalid && profileForm.controls['name']?.touched" class="highlight">*</span></label>
+                        <input type="text" id="name" name="name" [(ngModel)]="profile.name" required 
+                            [minlength]="2" [maxlength]="30" [pattern]="onlyAlphabetsPattern" #name="ngModel"/>
+                        <div *ngIf="name.invalid && name.touched" class="error-message">
+                            <small *ngIf="name.errors?.['required']">Name is required.</small>
+                            <small *ngIf="name.errors?.['minlength']">Name must be at least 2 characters.</small>
+                            <small *ngIf="name.errors?.['maxlength']">Name cannot be more than 30 characters.</small>
+                            <small *ngIf="name.errors?.['pattern']">Name can only contain alphabets.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email: <span *ngIf="profileForm.controls['email']?.invalid && profileForm.controls['email']?.touched" class="highlight">*</span></label>
+                        <input type="email" id="email" name="email" [(ngModel)]="profile.email" required email #email="ngModel"/>
+                        <div *ngIf="email.invalid && email.touched" class="error-message">
+                            <small *ngIf="email.errors?.['required'] ">Email is required.</small>
+                            <small *ngIf="email.errors?.['email']">Please enter a valid email address.</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" [(ngModel)]="profile.address" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number: <span *ngIf="profileForm.controls['phone_number']?.invalid && profileForm.controls['phone_number']?.touched" class="highlight">*</span></label>
+                        <input type="number" id="phone_number" name="phone_number" [(ngModel)]="profile.phone_number" required [minlength]="10" [maxlength]="10" #phone="ngModel"/>
+                        <div *ngIf="phone.invalid && phone.touched" class="error-message">
+                            <small *ngIf="phone.errors?.['required']">Phone number is required.</small>
+                            <small *ngIf="phone.errors?.['minlength'] || phone.errors?.['maxlength']">Phone number must be exactly 10 digits.</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn common-button" [disabled]="profileForm.invalid">Save Profile</button>
+                </form>
+            </div>
+        </section>
+      
+        <!-- Password Modal -->
+        <section *ngIf="isPasswordUpdateVisible" class="modal-backdrop">
+            <div class="modal">
+                <button class="close-btn" (click)="closePasswordModal()">×</button>
+                <h3 class="modal-title">Update Password</h3>
+                <form #passwordForm="ngForm" (ngSubmit)="submitPasswordUpdate(passwordForm)" class="form-layout">
+                    <div class="form-group">
+                        <label for="current-password">Current Password:</label>
+                        <input type="password" id="current-password" name="currentPassword" [(ngModel)]="currentPassword" required #currentPasswordField="ngModel"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password: <span *ngIf="passwordForm.controls['newPassword']?.invalid && passwordForm.controls['newPassword']?.touched" class="highlight">*</span></label>
+                        <input type="password" id="new-password" name="newPassword" [(ngModel)]="newPassword" required [minlength]="6" [maxlength]="20" [pattern]="passwordPattern" #newPasswordField="ngModel"/>
+                        <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="error-message">
+                            <small *ngIf="newPasswordField.errors?.['required']">New Password is required.</small>
+                            <small *ngIf="newPasswordField.errors?.['minlength']">Password must be at least 6 characters.</small>
+                            <small *ngIf="newPasswordField.errors?.['maxlength']">Password cannot exceed 20 characters.</small>
+                            <small *ngIf="newPasswordField.errors?.['pattern']">Password must be a valid format.</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn common-button" [disabled]="passwordForm.invalid">Update Password</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
