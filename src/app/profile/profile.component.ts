@@ -1,73 +1,113 @@
-import { CommonModule } from '@angular/common';
-import { Component, NgModule, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProfileService } from './profile.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+interface Profile {
+  name: string;
+  email: string;
+  address?: string;
+  phone: string;
+  borrowingLimit?: number;
+  membershipStatus?: string;
+  membershipExpiryDate?: string;
+  username?: string;
+}
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  imports:[FormsModule, CommonModule]
+  imports: [
+    CommonModule,  
+    FormsModule
+  ],
 })
 export class ProfileComponent implements OnInit {
+  isEditMode = false;
+  isPasswordUpdateVisible = false;
 
-  isEditMode: boolean = false;
-  isPasswordUpdateVisible: boolean = false;
-
-  profile = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    address: '123 Main St, Cityville',
-    phone_number: '1234567890',
-    borrowingLimit: 5,
-    membershipStatus: 'Prime',  // 'Prime' or 'Standard'
-    membershipExpiryDate: '2025-12-31',
-    username: 'john123'
+  profile: Profile = {
+    name: '',
+    email: '',
+    address: '',
+    phone: ''
   };
-
-
-  readonly onlyAlphabetsPattern = '^[a-zA-Z ]*$'; // only alphabets and spaces
-  readonly passwordPattern = '^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,20}$'; // at least one letter and one digit
-
 
   currentPassword = '';
   newPassword = '';
-  
 
-  ngOnInit(): void {}
+  readonly onlyAlphabetsPattern = '^[a-zA-Z ]*$';
+  readonly passwordPattern = '^.{6,20}$';
 
-  constructor(private router: Router) {}
 
-  toggleEditMode() {
-    this.isEditMode = !this.isEditMode;
-    if (!this.isEditMode) {
-    }
+  constructor(private router: Router, private profileService: ProfileService) {}
+
+  ngOnInit(): void {
+    this.profileService.getProfile().subscribe({
+      next: data => {
+        console.log(data);
+        
+        this.profile = data},
+      
+      error: err => console.error('Failed to fetch profile', err)
+    });
   }
 
-  togglePasswordUpdate() {
+  toggleEditMode(): void {
+    this.isEditMode = !this.isEditMode;
+  }
+
+  togglePasswordUpdate(): void {
     this.isPasswordUpdateVisible = true;
   }
 
-  closePasswordModal() {
+  closePasswordModal(): void {
     this.isPasswordUpdateVisible = false;
     this.router.navigate(['/profile']);
   }
 
-  submitPasswordUpdate(passwordForm: NgForm) {
-    if (passwordForm.valid) {
-      console.log('Password updated:', this.newPassword);
-      this.closePasswordModal(); // Close the modal after successful update
-    } else {
-      console.log('Password form is invalid!');
+  submitPasswordUpdate(form: NgForm): void {
+    if (form.valid) {
+      this.profileService.updatePassword(this.currentPassword, this.newPassword).subscribe({
+        next: res => {
+          alert('Password updated successfully!');
+          this.closePasswordModal();
+        },
+        error: err => {
+          console.log(err);
+          
+          if (err.status === 400) {
+            alert('Current password is incorrect.');
+          } else if (err.status === 401) {
+            alert('Unauthorized: Please login first.');
+          } else {
+            console.error('Password update failed:', err);
+            alert('An error occurred while updating the password.');
+          }
+        }
+      });
     }
   }
-  saveProfile(profileForm: NgForm) {
-    if (profileForm.valid) {
-      console.log('Profile saved:', this.profile);
-      this.isEditMode = false; // Close the edit form
-    } else {
-      console.log('Form is invalid!');
+  
+  
+
+  saveProfile(form: NgForm): void {
+    if (form.valid) {
+      this.profileService.updateProfile(this.profile).subscribe({
+        
+        next: () => {
+          console.log('Profile updated successfully');
+          this.isEditMode = false;
+          alert('Profile updated successfully!');
+        },
+        error: err => {
+          console.log("error 123");
+          
+          console.error('Profile update failed:', err)}
+      });
     }
   }
 }

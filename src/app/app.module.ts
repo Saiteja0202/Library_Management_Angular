@@ -9,6 +9,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
+import { CommonModule } from '@angular/common';
 
 
 // const routes: Routes = [
@@ -27,7 +28,8 @@ import { RegistrationComponent } from './registration/registration.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule // ✅ use only this for routes
+    AppRoutingModule,
+    CommonModule // ✅ use only this for routes
   ],
   providers: [
     AuthService,
