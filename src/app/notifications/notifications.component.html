@@ -5,14 +5,14 @@
     <table class="notifications__table">
       <thead>
         <tr>
-          <th class="notifications__cell--center notifications__cell--slno">Sl. No</th>
+          <th class="notifications__cell--center notifications__cell--slno">Member ID</th>
           <th class="notifications__cell--type">Message Type</th>
           <th>Message</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let note of notifications; let i = index" class="notifications__row">
-          <td class="notifications__cell--center">{{ i + 1 }}</td>
+          <td class="notifications__cell--center">{{ note.memberId }}</td>
           <td>{{ getMessageType(note.message) }}</td>
           <td>{{ getMessageContent(note.message) }}</td>
         </tr>

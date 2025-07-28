@@ -16,12 +16,17 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   login() {
-  
     this.auth.login(this.userName, this.userPassword).subscribe({
       next: (response: { [key: string]: string }) => {
         localStorage.setItem('authToken', response['token']);
         localStorage.setItem('memberId', response['memberId']);
-        this.router.navigate(['/member']);
+        localStorage.setItem('role', response['role']); 
+  
+        if (response['role'] === 'ADMIN') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/member']);
+        }
       },
       error: (err) => {
         console.error("Error occurred:", err);
@@ -29,6 +34,7 @@ export class LoginComponent {
       }
     });
   }
+  
   
   
   

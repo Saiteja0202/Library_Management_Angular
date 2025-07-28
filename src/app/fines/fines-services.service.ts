@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 export interface Fine {
   fineId: number;
+  memberId:number;
   bookId?: number;
   amount: number;
   fineStatus: string;
@@ -30,6 +31,9 @@ export class FinesServicesService {
       responseType: 'text' as const
     });
   }
-  
-  
+
+  getAllFines(): Observable<Fine[]> {
+    return this.http.get<Fine[]>(`${this.baseUrl}/all-fines`);
+  }
+
 }

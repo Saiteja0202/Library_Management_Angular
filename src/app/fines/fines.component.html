@@ -6,27 +6,30 @@
       <thead>
         <tr>
           <th style="text-align: center; width: 80px;">Fine ID</th>
+          <th style="text-align: center; width: 80px;">Member ID</th>
           <th style="text-align: center; width: 80px;">Book ID</th>
           <th style="text-align: center; width: 100px;">Amount</th>
           <th style="text-align: center; width: 100px;">Status</th>
           <th style="text-align: center; width: 160px;">Date</th>
-          <th style="text-align: center; width: 100px;">Action</th>
-        </tr>
+          <th *ngIf="role === 'MEMBER'" style="text-align: center; width: 100px;">Action</th>        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let fine of fines" class="fines__row">
           <td style="text-align: center;">{{ fine.fineId }}</td>
+          <td style="text-align: center;">{{ fine.memberId }}</td>
           <td style="text-align: center;">{{ fine.bookId }}</td>
-          <td style="text-align: center;">{{ fine.amount | currency:'INR':'symbol':'1.2-2'}}</td>
+          <td style="text-align: center;">{{ fine.amount | currency:'INR':'symbol':'1.2-2' }}</td>
           <td style="text-align: center;">{{ fine.fineStatus }}</td>
           <td style="text-align: center;">{{ fine.transactionDate }}</td>
-          <td style="text-align: center;">
+          <td *ngIf="role === 'MEMBER'" style="text-align: center;">
             <button 
               (click)="payFine(fine.fineId)" 
               [disabled]="fine.fineStatus === 'PAID'">
               Pay
             </button>
           </td>
+          
+          
         </tr>
       </tbody>
     </table>

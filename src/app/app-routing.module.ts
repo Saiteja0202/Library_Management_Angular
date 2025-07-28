@@ -12,6 +12,8 @@ import { BookListComponent } from './book/book-list/book-list.component';
 import { BookDetailsDialogComponent } from './book/book-details-dialog/book-details-dialog.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BookListsComponent } from './book-lists/book-lists.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { RequestsComponent } from './requests/requests.component';
 
 
 const routes: Routes = [
@@ -30,6 +32,16 @@ const routes: Routes = [
       { path: 'notifications', component: NotificationsComponent },
       { path: 'fines', component: FinesComponent },
       { path: 'history', component: BorrowingHistoryComponent },
+    ] 
+  },
+
+  { path: 'admin', component: AdminComponent, children: [
+    { path: '', redirectTo: 'book-lists', pathMatch: 'full' },
+      {path:'book-lists',component:BookListsComponent},
+      { path: 'notifications', component: NotificationsComponent },
+      { path: 'fines', component: FinesComponent },
+      { path: 'history', component: BorrowingHistoryComponent },
+      {path:'requests',component:RequestsComponent}
     ] 
   },
   { path: 'profile', component: ProfileComponent },

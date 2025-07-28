@@ -1,0 +1,44 @@
+<nav class="navbar">
+    <!-- Profile -->
+    <div class="profile-container">
+      <button (click)="toggleDropdown()" class="profile-button">
+        <img src="Profile_Logo.png" class="profile-logo" />
+      </button>
+      <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
+        <div class="dropdown-content">
+          <a routerLink="/profile">Profile</a>
+          <br />
+          <a href="#" (click)="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Logo -->
+    <div class="library-logo">
+      <img src="Library_Logo.png" />
+      <span>My Library</span>
+    </div>
+  
+    <!-- Nav Links -->
+    <ul class="nav-links">
+      <li><a routerLink="/admin/book-lists" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+      <li><a routerLink="/admin/history" routerLinkActive="active">History</a></li>
+      <li><a routerLink="/admin/fines" routerLinkActive="active">Fines</a></li>
+      <li><a routerLink="/admin/notifications" routerLinkActive="active">Notifications</a></li>
+      <li><a routerLink="/admin/requests" routerLinkActive="active">Requests</a></li>
+    </ul>
+  
+    <!-- Search -->
+    <div class="search-container" *ngIf="searchVisible">
+      <input 
+        type="text" 
+        placeholder="Search by name, author, or genre..." 
+        [(ngModel)]="searchTerm" 
+        (input)="filterBooks()" 
+      />
+      <button class="search-btn" (click)="filterBooks()">🔍</button>
+    </div>
+  </nav>
+  
+  <router-outlet></router-outlet>
+  
