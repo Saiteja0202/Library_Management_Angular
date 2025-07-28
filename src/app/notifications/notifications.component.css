@@ -1,19 +1,121 @@
-.section-container {
-    padding: 20px;
-    text-align: center;
+.notifications {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.notifications:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.notifications__title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.notifications__list {
+  overflow-x: auto;
+}
+
+.notifications__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  color: #444;
+  min-width: 600px;
+}
+
+.notifications__table thead {
+  background-color: #62b965;
+  color: white;
+}
+
+.notifications__table th,
+.notifications__table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.notifications__cell--center {
+  text-align: center;
+}
+
+.notifications__cell--slno {
+  width: 60px;
+}
+
+.notifications__cell--type {
+  width: 160px;
+}
+
+.notifications__table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.notifications__table tbody tr {
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.15);
+}
+
+.notifications__table tbody tr:hover {
+  background-color: #eef6ff;
+  cursor: pointer;
+}
+
+.notifications__empty {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .notifications {
+    padding: 16px;
   }
-  
-  .notification-list {
-    list-style: none;
-    padding: 0;
+
+  .notifications__title {
+    font-size: 1.5rem;
   }
-  
-  .notification-list li {
-    background-color: #fff3cd;
+
+  .notifications__table {
+    font-size: 14px;
+    min-width: unset;
+  }
+
+  .notifications__cell--slno {
+    width: 50px;
+  }
+
+  .notifications__cell--type {
+    width: 120px;
+  }
+
+  .notifications__empty {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .notifications__title {
+    font-size: 1.3rem;
+  }
+
+  .notifications__table th,
+  .notifications__table td {
     padding: 10px;
-    margin: 10px auto;
-    width: 80%;
-    border: 1px solid #ffeeba;
-    border-radius: 6px;
   }
-  
+}

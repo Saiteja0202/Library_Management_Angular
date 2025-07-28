@@ -1,4 +1,3 @@
-/* Dark overlay for modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -7,33 +6,34 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 1rem;
 }
 
-/* Main content of the modal */
 .modal-content {
   position: relative;
   background: #fdfdfd;
   padding: 2rem 2.5rem;
   border-radius: 16px;
-  max-width: 520px;
-  width: 90%;
+  max-width: 400px;
+  width: 100%;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
   animation: popIn 0.3s ease-out;
-  text-align: center; /* Center text inside */
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertically center */
-  align-items: center; /* Horizontally center */
+  justify-content: center; 
+  align-items: center;
   font-family: 'Segoe UI', Roboto, sans-serif;
   color: #2c3e50;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .modal-content img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin: 0 auto 1rem auto; /* center and space below */
+  margin: 0 auto 1rem auto;
   border-radius: 8px;
 }
 
@@ -48,14 +48,10 @@
 .modal-content p {
   text-align: center;
   width: 100%;
-  margin: 0.3rem 0;
   color: #555;
   font-size: 1rem;
-  line-height: 1.5;
 }
 
-
-/* Borrow button */
 .borrow-btn {
   display: inline-block;
   margin-top: 1.5rem;
@@ -74,7 +70,6 @@
   background-color: #2980b9;
 }
 
-/* Close button */
 .close-btn {
   position: absolute;
   top: 12px;
@@ -92,7 +87,6 @@
   color: #e74c3c;
 }
 
-/* Pop-in animation */
 @keyframes popIn {
   from {
     opacity: 0;
@@ -104,17 +98,41 @@
   }
 }
 
-/* Responsive tweaks */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .modal-content {
-    padding: 1.5rem;
+    max-width: 90%;
+    padding: 1.5rem 1.8rem;
   }
 
   .modal-content h2 {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+  }
+
+  .modal-content p {
+    font-size: 0.95rem;
+  }
+
+  .borrow-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1.2rem 1.2rem;
+  }
+
+  .modal-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .modal-content p {
+    font-size: 0.9rem;
   }
 
   .borrow-btn {
     width: 100%;
+    font-size: 1rem;
   }
 }

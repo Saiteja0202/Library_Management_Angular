@@ -1,34 +1,34 @@
 <div class="book-list-container">
-  <div style="color: white;">
-    <h1>Welcome to My Library</h1>
-<p>Whether you're here to borrow your next favorite book, track your reading history, or simply discover something new, we're thrilled to have you join our community!
-  <br>
-  <br>
-  Our library offers a wide variety of books across all genres, and with just a few clicks, you can dive into the world of knowledge, adventure, and imagination. New users like you can sign up to access personalized features such as:
-  
-  <br></p>
-  <ul>
-    <li>Browse our extensive book collection and find your next read.</li>
-    <li>Create your own profile to track your borrowing history, manage fines, and customize your reading preferences.</li>
-    <li>Stay updated with notifications about new arrivals, due dates, and more!</li>
-    <li>Explore your borrowing history to revisit the books you’ve loved.</li>
-  </ul>
-  
-  <p>
-  We’re committed to making your reading experience as enjoyable and seamless as possible. Ready to get started? Sign up today, and let’s embark on this literary journey together!</p>
-  <h1 style="display: flex;justify-content: center;color: white;font-size: bold;">Available Books</h1>
-  
+  <div class="intro-section">
+    <h1 class="main-heading">Welcome to My Library</h1>
+    <p>
+      Whether you're here to borrow your next favorite book, track your reading history, or simply discover something new, we're thrilled to have you join our community!
+      <br><br>
+      Our library offers a wide variety of books across all genres, and with just a few clicks, you can dive into the world of knowledge, adventure, and imagination. New users like you can sign up to access personalized features such as:
+      <br>
+    </p>
+    <ul>
+      <li>Browse our extensive book collection and find your next read.</li>
+      <li>Create your own profile to track your borrowing history, manage fines, and customize your reading preferences.</li>
+      <li>Stay updated with notifications about new arrivals, due dates, and more!</li>
+      <li>Explore your borrowing history to revisit the books you’ve loved.</li>
+    </ul>
+
+    <p>
+      We’re committed to making your reading experience as enjoyable and seamless as possible. Ready to get started? Sign up today, and let’s embark on this literary journey together!
+    </p>
+
+    <h1 class="section-heading">Available Books</h1>
   </div>
-<div class="book-grid">
+
+  <div class="book-grid">
     <div *ngFor="let book of books" class="book-card">
       <img [src]="book.bookImage" [alt]="book.bookName" class="book-image" />
-
       <div class="book-info">
         <h3 class="title">{{ book.bookName }}</h3>
         <p class="author">Author: {{ book.author }}</p>
         <p class="copies">Available: {{ book.availableCopies }}</p>
       </div>
-
       <div class="actions">
         <button class="details-btn" (click)="viewDetails(book)">View Details</button>
       </div>

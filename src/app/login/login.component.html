@@ -1,10 +1,16 @@
-<div class="login-container" >
-  <h2>Login</h2><br><br>
-  <form (ngSubmit)="login()">
-    <input type="text" [(ngModel)]="userName" name="userName" placeholder="Username" required /> <br> <br>
-    <input type="password" [(ngModel)]="userPassword" name="userPassword" placeholder="Password" required /> <br> <br>
 
-    <button type="submit">Login</button>
-    <div *ngIf="error" style="color:red">{{ error }}</div>
-  </form>
+<div class="login-container" >
+  <div>
+    <img src="Login_Image.png" class="login-image" />
+  </div>
+  <div class="input-container">
+    <h1>Admin / Member Login</h1>
+    <form (ngSubmit)="login()">
+      <input type="text" [(ngModel)]="userName" name="userName" placeholder="Username" required /> <br> <br>
+      <input type="password" [(ngModel)]="userPassword" name="userPassword" placeholder="Password" required /> <br> <br>
+  
+      <button type="submit">LOGIN</button>
+      <div *ngIf="error" style="color:red">{{ error }}</div>
+    </form>
+  </div>
 </div>

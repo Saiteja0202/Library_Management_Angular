@@ -1,1 +1,26 @@
-<p style="font-size: 100px;">Notifications</p>
+<h1 class="notifications__title">Notifications</h1>
+
+<section class="notifications">
+  <div *ngIf="notifications.length > 0; else noNotifications" class="notifications__list">
+    <table class="notifications__table">
+      <thead>
+        <tr>
+          <th class="notifications__cell--center notifications__cell--slno">Sl. No</th>
+          <th class="notifications__cell--type">Message Type</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of notifications; let i = index" class="notifications__row">
+          <td class="notifications__cell--center">{{ i + 1 }}</td>
+          <td>{{ getMessageType(note.message) }}</td>
+          <td>{{ getMessageContent(note.message) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noNotifications>
+    <p class="notifications__empty">No notifications available.</p>
+  </ng-template>
+</section>

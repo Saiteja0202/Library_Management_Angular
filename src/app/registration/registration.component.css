@@ -1,91 +1,122 @@
 /* General container styling */
 .container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: linear-gradient(135deg, #f0f4ff, #ffffff);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  /* Card title styling */
-  h2 {
-    font-weight: 600;
-    font-size: 28px;
-    color: #3178c6;
-    margin-bottom: 20px;
-  }
-  
-  /* Label styling */
-  label {
-    font-weight: 500;
-    margin-bottom: 8px;
-    display: block;
-    color: #333;
-  }
-  
-  /* Input fields */
-  input.form-control {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px 15px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-  }
-  
-  input.form-control:focus {
-    border-color: #3178c6;
-    box-shadow: 0 0 6px rgba(49, 120, 198, 0.3);
-    outline: none;
-  }
-  
-  /* Button styling */
-  button.btn-primary {
-    background-color: #3178c6;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 12px;
-    transition: background-color 0.3s ease;
-    font-weight: 500;
-  }
-  
-  button.btn-primary:disabled {
-    background-color: #8eb3e5;
-    cursor: not-allowed;
-  }
-  
-  button.btn-primary:hover:not(:disabled) {
-    background-color: #245a98;
-  }
-  
+  max-width: 600px;
+  margin: 40px auto;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+  width: 90%; /* Added for responsiveness */
+}
+
+/* Card title styling */
+h2 {
+  font-weight: 600;
+  font-size: 28px;
+  color: #3178c6;
+  margin-bottom: 20px;
+  text-align: center; /* Better on small screens */
+}
+
+/* Label styling */
+label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+  color: #333;
+}
+
+/* Input fields */
+input.form-control {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  width: 100%; /* Full width on all screens */
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input.form-control:focus {
+  border-color: #3178c6;
+  box-shadow: 0 0 6px rgba(49, 120, 198, 0.3);
+  outline: none;
+}
+
+/* Button styling */
+button.btn-primary {
+  background-color: #3178c6;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+  width: 100%; /* Mobile-friendly */
+}
+
+button.btn-primary:disabled {
+  background-color: #8eb3e5;
+  cursor: not-allowed;
+}
+
+button.btn-primary:hover:not(:disabled) {
+  background-color: #245a98;
+}
+
+.btn-primary:hover {
+  cursor: pointer;
+}
+
+/* Layout helpers */
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Adds spacing between flex items */
+}
+
+.flex-fill {
+  flex: 1 1 0;
+}
+
+.space-down {
+  margin-bottom: 20px;
+}
+
+.alert-danger {
+  color: red;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
   .d-flex {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .flex-fill {
-    flex: 1 1 0;
-  }
-  
-  @media (max-width: 768px) {
-    .d-flex {
-      flex-direction: column;
-    }
+    flex-direction: column;
   }
 
-  .space-down{
-    margin-bottom: 20px;
+  h2 {
+    font-size: 24px;
   }
 
-  .btn-primary:hover{
-    cursor: pointer;
+  button.btn-primary {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 20px;
   }
 
-  .alert-danger{
-    color: red;
+  input.form-control {
+    font-size: 15px;
+    padding: 10px;
   }
-  
-  
-  
+
+  button.btn-primary {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}

@@ -1,1 +1,23 @@
-<p style="font-size: 100px;">Borrowing History</p>
+<h1>Borrowing History</h1>
+
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Transaction ID</th>
+      <th>Borrow Date</th>
+      <th>Return Date</th>
+      <th>Status</th>
+      <th>Book ID</th>
+ 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let txn of borrowingHistory">
+      <td>{{ txn.transactionId }}</td>
+      <td>{{ txn.borrowDate }}</td>
+      <td>{{ txn.returnDate }}</td>
+      <td>{{ txn.status }}</td>
+      <td>{{ txn.book?.bookId }}</td>
+    </tr>
+  </tbody>
+</table>

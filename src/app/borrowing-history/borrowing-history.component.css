@@ -1,0 +1,99 @@
+.history-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+  }
+  
+  h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #222;
+    letter-spacing: 0.02em;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+  }
+  
+  /* Table Styling */
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    min-width: 600px; /* ensures table won't break on small screens */
+  }
+  
+  thead {
+    background-color: #62b965;
+    color: white;
+  }
+  
+  th,
+  td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:hover {
+    background-color: #eef;
+  }
+  
+  th {
+    color: white;
+  }
+  
+  /* Responsive Enhancements */
+  @media (max-width: 768px) {
+    .history-container {
+      padding: 15px;
+    }
+  
+    table {
+      font-size: 15px;
+    }
+  
+    th,
+    td {
+      padding: 10px;
+    }
+  
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .history-container {
+      margin: 15px;
+      padding: 15px 10px;
+    }
+  
+    h1 {
+      font-size: 1.4rem;
+      flex-direction: column;
+    }
+  
+    .table-responsive {
+      overflow-x: auto;
+    }
+  
+    table {
+      font-size: 14px;
+      min-width: 480px;
+    }
+  }
+  

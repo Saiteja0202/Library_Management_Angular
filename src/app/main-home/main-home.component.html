@@ -1,21 +1,25 @@
 <div>
-    <div style="width: 100%;height:60px; display: flex;justify-content: space-evenly;background-color: rgba(46, 118, 181, 0.347);border-radius: 10px;display: flex;flex-direction: row;justify-content: end;">
-       
-            <div>
-                <img src="Library_Logo.png" height="40px" width="40px" style="border-radius:100px ;margin-right: 450px;margin-top: 10px;" />
-            </div>
-            <div style="display: flex;justify-content: center;padding-right: 350px;"><h2>BookHub</h2></div>
-            <div>
-                <button style="margin-left: 30px;padding: 8px;border-radius: 10px;margin-top: 12px;"><a [routerLink]="['registration']" routerLinkActive="router-link-active" style="text-decoration: none;">Register</a></button>
-            </div>
-            <div>
-                <button style="margin-left: 30px;padding: 8px;border-radius: 10px;margin-top: 12px;margin-right: 80px;"><a [routerLink]="['login']" routerLinkActive="router-link-active" style="text-decoration: none;">  Login  </a></button>
-            </div>
+    <div class="header-bar">
+      <div class="header-logo">
+        <img src="Library_Logo.png" />
+      </div>
+      <div class="header-title">
+        <h2>BookHub</h2>
+      </div>
+      <div class="header-buttons">
+        <button>
+          <a [routerLink]="['registration']" routerLinkActive="router-link-active">Register</a>
+        </button>
+        <button>
+          <a [routerLink]="['login']" routerLinkActive="router-link-active">Login</a>
+        </button>
+      </div>
     </div>
+  
     <div *ngIf="isBookLinkEnabled">
-            <a [routerLink]="['/book']" routerLinkActive="router-link-active" style="text-decoration: none;"></a>
-        
+      <a [routerLink]="['/book']" routerLinkActive="router-link-active" class="book-link"></a>
     </div>
-
-</div>
-<router-outlet></router-outlet>
+  </div>
+  
+  <router-outlet></router-outlet>
+  

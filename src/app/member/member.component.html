@@ -1,62 +1,42 @@
-<!-- navbar.component.html -->
 <nav class="navbar">
+  <!-- Profile -->
   <div class="profile-container">
-    <!-- Profile Logo -->
     <button (click)="toggleDropdown()" class="profile-button">
       <img src="Profile_Logo.png" class="profile-logo" />
     </button>
-
-    <!-- Dropdown menu -->
     <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
-      <div style="margin-left: 25px;margin-top: 10px;">
+      <div class="dropdown-content">
         <a routerLink="/profile">Profile</a>
-        <br>
+        <br />
         <a href="#" (click)="logout()">Logout</a>
       </div>
     </div>
   </div>
 
-  <!-- App Logo -->
-  <div class="logo" style="display: flex;padding-left: 100px;">
-    <img src="Library_Logo.png" height="35px" width="35px" style="padding-right:10px;" />
-    <span style="padding-top: 10px;">My Library</span>
+  <!-- Logo -->
+  <div class="library-logo">
+    <img src="Library_Logo.png" />
+    <span>My Library</span>
   </div>
 
-  <!-- Navbar Links -->
-  <ul class="nav-links" style="padding-left: 150px;">
-    <li><a routerLink="/member" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-    <li><a routerLink="/member/notifications" routerLinkActive="active">Notifications</a></li>
-    <li><a routerLink="/member/fines" routerLinkActive="active">Fines</a></li>
+  <!-- Nav Links -->
+  <ul class="nav-links">
+    <li><a routerLink="/member/book-lists" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
     <li><a routerLink="/member/history" routerLinkActive="active">History</a></li>
+    <li><a routerLink="/member/fines" routerLinkActive="active">Fines</a></li>
+    <li><a routerLink="/member/notifications" routerLinkActive="active">Notifications</a></li>
   </ul>
 
   <!-- Search -->
-  <div class="search-container" *ngIf="searchVisible" style="padding-left: 100px;">
+  <div class="search-container" *ngIf="searchVisible">
     <input 
       type="text" 
       placeholder="Search by name, author, or genre..." 
       [(ngModel)]="searchTerm" 
       (input)="filterBooks()" 
-      class="form-control mb-4"
     />
     <button class="search-btn" (click)="filterBooks()">🔍</button>
   </div>
 </nav>
-
-<div class="book-list">
-  <div class="book-card" *ngFor="let book of filteredBooks">
-    <h4>{{ book.bookName }}</h4>
-    <p><strong>Author:</strong> {{ book.author }}</p>
-    <p><strong>Genre:</strong> {{ book.genre }}</p>
-    <p class="meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
-    <p class="meta"><strong>Published:</strong> {{ book.yearPublished }}</p>
-    <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
-      {{ book.availableCopies > 0 ? 'Available' : 'Unavailable' }}
-    </p>
-    <button [disabled]="book.availableCopies === 0" (click)="borrowBook(book.bookId)">
-      {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
-    </button>
-  </div>
-</div>
 
 <router-outlet></router-outlet>

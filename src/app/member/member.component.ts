@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { BookSearchService } from '../book-search.service';
+
 
 @Component({
   selector: 'member',
@@ -16,23 +18,31 @@ import { filter } from 'rxjs';
 export class MemberComponent {
   dropdownVisible = false;
   searchVisible = true; 
+  showBookList: boolean = true;
 
   books: any[] = [];
   searchTerm: string = '';
   filteredBooks: any[] = []; 
   
 
-  constructor(private http: HttpClient,private router: Router) {
+  constructor(private http: HttpClient,private router: Router,private bookSearchService: BookSearchService) {
     this.fetchBooks();
   }
 
   ngOnInit(): void {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      const currentRoute = this.router.url;
-      this.searchVisible = currentRoute.includes('member') && !currentRoute.includes('notifications') && !currentRoute.includes('fines') && !currentRoute.includes('history');
-    });
+    const currentRoute = this.router.url;
+    this.searchVisible = currentRoute === '/member/book-lists';
+  
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const updatedRoute = this.router.url;
+        this.searchVisible = updatedRoute === '/member/book-lists';
+      });
   }
+  
 
+  
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
@@ -48,27 +58,10 @@ export class MemberComponent {
     this.filteredBooks = this.books;
     });
   }
-
+  
   filterBooks() {
-    const term = this.searchTerm.toLowerCase();
-    console.log(term);
-    
-    this.filteredBooks = this.books.filter(book =>
-      book.bookName.toLowerCase().includes(term) ||
-      book.author.toLowerCase().includes(term) ||
-      book.genre.toLowerCase().includes(term)
-    );
+    this.bookSearchService.setSearchTerm(this.searchTerm);
   }
-
-  onSearch() {
-    this.http.get(`http://localhost:4321/books/search?term=${this.searchTerm}`)
-      .subscribe(data => {
-        this.books = data as any[];
-      });
-  }
-
-  borrowBook(bookId: number) {
-    this.http.post(`http://localhost:4321/books/borrow/${bookId}`, {})
-      .subscribe(() => alert('Book borrowed successfully!'));
-  }
+  
+  
 }
