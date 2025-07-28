@@ -14,25 +14,29 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BookListsComponent } from './book-lists/book-lists.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { RequestsComponent } from './requests/requests.component';
-
-
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
-  { 
-    path: '', component: MainHomeComponent, children: [
-
+  {
+    path: '',
+    component: MainHomeComponent,
+    children: [
       { path: '', component: BookListComponent },
       { path: 'books/:id', component: BookDetailsDialogComponent },
-    ]
-
+    ],
   },
   { path: 'login', component: LoginComponent },
-  { path: 'member', component: MemberComponent, children: [
-    { path: '', redirectTo: 'book-lists', pathMatch: 'full' },
-      {path:'book-lists',component:BookListsComponent},
+  {
+    path: 'member',
+    component: MemberComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'book-lists', pathMatch: 'full' },
+      { path: 'book-lists', component: BookListsComponent },
       { path: 'notifications', component: NotificationsComponent },
       { path: 'fines', component: FinesComponent },
       { path: 'history', component: BorrowingHistoryComponent },
-    ] 
+      { path: 'profile', component: ProfileComponent },
+    ],
   },
 
   { path: 'admin', component: AdminComponent, children: [
@@ -42,17 +46,15 @@ const routes: Routes = [
       { path: 'fines', component: FinesComponent },
       { path: 'history', component: BorrowingHistoryComponent },
       {path:'requests',component:RequestsComponent}
-    ] 
+    ]
   },
   { path: 'profile', component: ProfileComponent },
   { path: 'registration', component: RegistrationComponent },
-  {path:'**',component:PageNotFoundComponent}
+  { path: '**', component: PageNotFoundComponent },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

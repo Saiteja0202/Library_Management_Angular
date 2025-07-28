@@ -1,16 +1,25 @@
-  <div class="book-list">
-    <div class="book-card" *ngFor="let book of filteredBooks">
-      <h4>{{ book.bookName }}</h4>
-      <p><strong>Author:</strong> {{ book.author }}</p>
-      <p><strong>Genre:</strong> {{ book.genre }}</p>
-      <p class="meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
-      <p class="meta"><strong>Published:</strong> {{ book.yearPublished }}</p>
-      <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
-        {{ book.availableCopies > 0 ? 'Available : ' + book.availableCopies : 'Unavailable' }}
-      </p>
-      <button [disabled]="book.availableCopies === 0" (click)="borrowBook(book.bookId)">
+<div class="book-list">
+  <div class="book-card" *ngFor="let book of filteredBooks">
+    <h4>{{ book.bookName }}</h4>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Genre:</strong> {{ book.genre }}</p>
+    <p class="meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
+    <p class="meta"><strong>Published:</strong> {{ book.yearPublished }}</p>
+    <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
+      {{ book.availableCopies > 0 ? 'Available : ' + book.availableCopies : 'Unavailable' }}
+    </p>
+    <button
+      *ngIf="borrowedBookIds.includes(book.bookId); else borrowBtn"
+      (click)="returnBook(book.bookId)">
+      Return
+    </button>
+
+    <ng-template #borrowBtn>
+      <button
+        [disabled]="book.availableCopies === 0"
+        (click)="borrowBook(book.bookId)">
         {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
       </button>
-    </div>
+    </ng-template>
   </div>
-  
+</div>

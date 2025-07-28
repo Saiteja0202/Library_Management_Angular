@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    CommonModule // ✅ use only this for routes
+    CommonModule
   ],
   providers: [
     AuthService,

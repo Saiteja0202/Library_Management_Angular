@@ -24,7 +24,7 @@ export class BorrowingHistoryComponent implements OnInit {
       this.historyService.getAllTransactions().subscribe({
         next: (data) => {this.borrowingHistory = data;
           console.log(this.borrowingHistory);
-   
+
         },
         error: (err) => console.error('Failed to load all transactions:', err)
       });
@@ -39,3 +39,4 @@ export class BorrowingHistoryComponent implements OnInit {
     }
   }
 }
+

@@ -32,14 +32,12 @@ export class BookListComponent implements OnInit {
 
   getBookImage(bookName: string): string {
     const imageMap: { [key: string]: string } = {
-      'Java': '/Java_Book.jpg',
-      'Python': '/Python_Book.jpg',
-      'Java Script': '/JavaScript_Book.jpg',
-      'JDBC': '/JDBC_Book.jpg',
-      'C++': 'C++_Book.jpg',
-      'C#':'C#_Book2.png',
-      'Spring':'Spring_Book.jpg'
-
+      'Sandy Biography': 'SandyBiography.jpg',
+      'Harry Potter Book-5': '',
+      'Harry Potter Book-4': 'HarryPotter-4.jpg',
+      'Harry Potter Book-3': 'HarryPotter-3.jpg',
+      'Harry Potter Book-2': 'HarryPotter-2.jpg',
+      'Harry Potter Book-1': 'HarryPotter-1.jpg'
     };
 
     return imageMap[bookName] || 'default-book.jpg';

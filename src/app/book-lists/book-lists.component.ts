@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 export class BookListsComponent implements OnInit {
   books: any[] = [];
   filteredBooks: any[] = [];
+  borrowedBookIds: number[] = [];
   private searchSubscription!: Subscription;
 
   constructor(
@@ -29,10 +30,16 @@ export class BookListsComponent implements OnInit {
   ngOnInit(): void {
     this.fetchBooks();
 
+    const memberId = localStorage.getItem('memberId');
+    if (memberId) {
+      this.fetchBorrowedBooks(+memberId);
+    }
+
     this.searchSubscription = this.bookSearchService.searchTerm$.subscribe(term => {
       this.filterBooks(term);
     });
   }
+
 
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
@@ -43,6 +50,18 @@ export class BookListsComponent implements OnInit {
       this.books = data as any[];
       this.filteredBooks = this.books;
     });
+  }
+
+  fetchBorrowedBooks(memberId: number) {
+    this.http.get<any[]>(`http://localhost:4321/books/get-borrowed-books/${memberId}`)
+      .subscribe({
+        next: (data) => {
+          this.borrowedBookIds = data.map(book => book.bookId);
+        },
+        error: (err) => {
+          console.error('Error fetching borrowed books:', err);
+        }
+      });
   }
 
   filterBooks(term: string) {
@@ -70,6 +89,7 @@ export class BookListsComponent implements OnInit {
       next: (res) => {
         alert(res.body || 'Book borrowed successfully!');
         this.fetchBooks();
+        this.fetchBorrowedBooks(+memberId);
       },
       error: (err) => {
         console.error(err);
@@ -81,4 +101,31 @@ export class BookListsComponent implements OnInit {
       }
     });
   }
+
+
+  returnBook(bookId: number) {
+    const memberId = localStorage.getItem('memberId');
+    if (!memberId) {
+      alert('You must be logged in to return a book.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.http.post(
+      `http://localhost:4321/books/return/${memberId}/${bookId}`,
+      {},
+      { observe: 'response', responseType: 'text' }
+    ).subscribe({
+      next: (res) => {
+        alert(res.body || 'Book returned successfully!');
+        this.fetchBooks();
+        this.fetchBorrowedBooks(+memberId);
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error returning book.');
+      }
+    });
+  }
+
 }

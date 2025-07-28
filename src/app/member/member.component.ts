@@ -17,13 +17,13 @@ import { BookSearchService } from '../book-search.service';
 })
 export class MemberComponent {
   dropdownVisible = false;
-  searchVisible = true; 
+  searchVisible = true;
   showBookList: boolean = true;
 
   books: any[] = [];
   searchTerm: string = '';
-  filteredBooks: any[] = []; 
-  
+  filteredBooks: any[] = [];
+
 
   constructor(private http: HttpClient,private router: Router,private bookSearchService: BookSearchService) {
     this.fetchBooks();
@@ -32,7 +32,7 @@ export class MemberComponent {
   ngOnInit(): void {
     const currentRoute = this.router.url;
     this.searchVisible = currentRoute === '/member/book-lists';
-  
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -40,9 +40,9 @@ export class MemberComponent {
         this.searchVisible = updatedRoute === '/member/book-lists';
       });
   }
-  
 
-  
+
+
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
@@ -50,21 +50,21 @@ export class MemberComponent {
   logout(): void {
     localStorage.removeItem('memberId');
     localStorage.removeItem('authToken');
-  
+
     this.router.navigate(['/login']);
   }
 
   fetchBooks() {
     this.http.get('http://localhost:4321/books/get-books').subscribe(data => {
-      
+
       this.books = data as any[];
     this.filteredBooks = this.books;
     });
   }
-  
+
   filterBooks() {
     this.bookSearchService.setSearchTerm(this.searchTerm);
   }
-  
-  
+
+
 }
