@@ -47,8 +47,11 @@ export class MemberComponent {
     this.dropdownVisible = !this.dropdownVisible;
   }
 
-  logout() {
-    
+  logout(): void {
+    localStorage.removeItem('memberId');
+    localStorage.removeItem('authToken');
+  
+    this.router.navigate(['/login']);
   }
 
   fetchBooks() {
