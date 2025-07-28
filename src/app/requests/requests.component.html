@@ -1,0 +1,39 @@
+<h1 class="requests__title">Requests</h1>
+
+<div class="requests">
+  <table class="requests__table">
+    <thead>
+      <tr>
+        <th>Member ID</th>
+        <th>Member Name</th>
+        <th>Book ID</th>
+        <th>Book Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        <td>{{ request.memberId }}</td>
+        <td>{{ request.memberName }}</td>
+        <td>{{ request.bookId }}</td>
+        <td>{{ request.bookName }}</td>
+        <td class="requests__cell--center">
+          <span *ngIf="request.status === 'pending'">
+            <button class="requests__accept-btn" (click)="acceptRequest(request.transactionId)">Accept</button>
+            <button class="requests__reject-btn" (click)="rejectRequest(request.transactionId)">Reject</button>
+          </span>
+          <span *ngIf="request.status === 'accepted'" [ngClass]="'requests__accepted'">
+            Accepted
+          </span>
+          <span *ngIf="request.status === 'rejected'" [ngClass]="'requests__rejected'">
+            Rejected
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="requests.length === 0" class="requests__empty">
+    No requests available.
+  </div>
+</div>

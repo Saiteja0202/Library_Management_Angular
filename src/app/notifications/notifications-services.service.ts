@@ -24,5 +24,10 @@ export class NotificationsService {
   getNotificationsByMemberId(memberId: number): Observable<LibraryNotification[]> {
     return this.http.get<LibraryNotification[]>(`${this.baseUrl}/${memberId}`);
   }
+
+  getAllNotifications(): Observable<LibraryNotification[]> {
+    return this.http.get<LibraryNotification[]>(`${this.baseUrl}/get-all`);
+  }
+  
   
 }
