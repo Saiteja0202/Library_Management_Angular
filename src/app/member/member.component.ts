@@ -22,14 +22,18 @@ export class MemberComponent {
 
   books: any[] = [];
   searchTerm: string = '';
-  filteredBooks: any[] = [];
-
+  filteredBooks: any[] = []; 
+  role: string | null = null;
+  memberId: number | null = null;
 
   constructor(private http: HttpClient,private router: Router,private bookSearchService: BookSearchService) {
     this.fetchBooks();
   }
 
   ngOnInit(): void {
+  
+    this.role = localStorage.getItem('role');
+    this.memberId = Number(localStorage.getItem('memberId'));
     const currentRoute = this.router.url;
     this.searchVisible = currentRoute === '/member/book-lists';
 

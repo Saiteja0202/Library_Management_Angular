@@ -28,6 +28,7 @@ export class AdminComponent {
   }
 
   ngOnInit(): void {
+    
     const currentRoute = this.router.url;
     this.searchVisible = currentRoute === '/admin/book-lists';
   

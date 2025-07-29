@@ -4,11 +4,11 @@
       <button (click)="toggleDropdown()" class="profile-button">
         <img src="Profile_Logo.png" class="profile-logo" />
       </button>
-      <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
+            <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
         <div class="dropdown-content">
           <a routerLink="/profile">Profile</a>
-          <br />
           <a href="#" (click)="logout()">Logout</a>
+          
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
         [(ngModel)]="searchTerm" 
         (input)="filterBooks()" 
       />
-      <button class="search-btn" (click)="filterBooks()">🔍</button>
+      <!-- <button class="search-btn" (click)="filterBooks()">🔍</button> -->
     </div>
   </nav>
   

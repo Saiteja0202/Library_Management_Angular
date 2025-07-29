@@ -1,3 +1,7 @@
+<div *ngIf="role === 'ADMIN'" class="admin-book-list-container">
+  <button (click)="openAddDialog()">Add New Book</button>
+</div>
+
 <div class="book-list">
   <div class="book-card" *ngFor="let book of filteredBooks">
     <h4>{{ book.bookName }}</h4>
@@ -8,18 +12,107 @@
     <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
       {{ book.availableCopies > 0 ? 'Available : ' + book.availableCopies : 'Unavailable' }}
     </p>
-    <button
-      *ngIf="borrowedBookIds.includes(book.bookId); else borrowBtn"
-      (click)="returnBook(book.bookId)">
-      Return
-    </button>
 
-    <ng-template #borrowBtn>
-      <button
-        [disabled]="book.availableCopies === 0"
-        (click)="borrowBook(book.bookId)">
-        {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
-      </button>
-    </ng-template>
+    <!-- Borrow Button or Status Text Based on Book Status -->
+    <div *ngIf="role === 'MEMBER'">
+      <ng-container [ngSwitch]="bookStatuses[book.bookId]">
+        
+        <!-- Display status labels -->
+        <span *ngSwitchCase="'PENDING'" style="color: red; font-weight: bold;">PENDING</span>
+        <span *ngSwitchCase="'BORROW_REJECTED'" style="color: red; font-weight: bold;">
+          BORROW REJECTED
+        </span>
+        <span *ngSwitchCase="'RETURN_PENDING'" style="color: red; font-weight: bold;">RETURN PENDING</span>
+        <span *ngSwitchCase="'RETURN_REJECTED'" style="color: red; font-weight: bold;">RETURN REJECTED</span>
+    
+        <!-- Borrow button or status text based on book status -->
+        <button *ngSwitchCase="'BORROW_REJECTED'" 
+                [disabled]="book.availableCopies === 0" 
+                (click)="borrowBook(book.bookId)">
+          Borrow
+        </button>
+    
+        <!-- Return button for books that are BORROWED or RETURN_REJECTED -->
+        <button *ngSwitchCase="'BORROWED'" (click)="returnBook(book.bookId)">Return</button>
+        <button *ngSwitchCase="'RETURN_REJECTED'" (click)="returnBook(book.bookId)" [disabled]="book.availableCopies === 0">
+          Return
+        </button>
+    
+        <!-- Default: Borrow button (if not returned/rejected) -->
+        <button *ngSwitchDefault 
+                [disabled]="book.availableCopies === 0"
+                (click)="borrowBook(book.bookId)">
+          {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
+        </button>
+      </ng-container>
+    </div>
+    
+
+    <!-- Admin Actions (Update and Delete) -->
+    <div *ngIf="role === 'ADMIN'">
+      <button (click)="openUpdateDialog(book.bookId)">Update</button>
+      <button (click)="confirmDelete(book.bookId)">Delete</button>
+    </div>
   </div>
 </div>
+
+<!-- Update Dialog -->
+<div *ngIf="showUpdateDialog" class="dialog-backdrop">
+  <div class="dialog">
+    <h3>Update Book</h3>
+    <form (ngSubmit)="updateBook()">
+      <label>Book Name:
+        <input type="text" [(ngModel)]="updateBookModel.bookName" name="bookName" required>
+      </label>
+      <label>Author:
+        <input type="text" [(ngModel)]="updateBookModel.author" name="author" required>
+      </label>
+      <label>Genre:
+        <input type="text" [(ngModel)]="updateBookModel.genre" name="genre" required>
+      </label>
+      <label>ISBN:
+        <input type="text" [(ngModel)]="updateBookModel.isbn" name="isbn" required>
+      </label>
+      <label>Published Year:
+        <input type="number" [(ngModel)]="updateBookModel.yearPublished" name="yearPublished" required>
+      </label>
+      <label>Available Copies:
+        <input type="number" [(ngModel)]="updateBookModel.availableCopies" name="availableCopies" required>
+      </label>
+
+      <button type="submit">Save</button>
+      <button type="button" (click)="closeUpdateDialog()">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- Add Dialog -->
+<div *ngIf="showAddDialog" class="dialog-backdrop">
+  <div class="dialog">
+    <h3>Add New Book</h3>
+    <form (ngSubmit)="addBook()">
+      <label>Book Name:
+        <input type="text" [(ngModel)]="addBookModel.bookName" name="bookName" required>
+      </label>
+      <label>Author:
+        <input type="text" [(ngModel)]="addBookModel.author" name="author" required>
+      </label>
+      <label>Genre:
+        <input type="text" [(ngModel)]="addBookModel.genre" name="genre" required>
+      </label>
+      <label>ISBN:
+        <input type="text" [(ngModel)]="addBookModel.isbn" name="isbn" required>
+      </label>
+      <label>Published Year:
+        <input type="number" [(ngModel)]="addBookModel.yearPublished" name="yearPublished" required>
+      </label>
+      <label>Available Copies:
+        <input type="number" [(ngModel)]="addBookModel.availableCopies" name="availableCopies" required>
+      </label>
+
+      <button type="submit">Add</button>
+      <button type="button" (click)="closeAddDialog()">Cancel</button>
+    </form>
+  </div>
+</div>
+

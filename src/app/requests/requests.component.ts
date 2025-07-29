@@ -1,68 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { RequestsServiceService } from './requests-service.service';
 
 @Component({
   selector: 'app-requests',
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.css'],
-  imports: [NgFor, NgIf,NgClass]
+  standalone: true,
+  imports: [NgIf,NgFor]
 })
 export class RequestsComponent implements OnInit {
+  requests: any[] = [];
 
-  requests: any[] = [];  
-
-  constructor(private http: HttpClient) { }
+  constructor(private requestService: RequestsServiceService) {}
 
   ngOnInit(): void {
-    this.loadRequests(); 
+    this.loadRequests();
   }
 
+  // Load all borrowing transactions (admin requests)
   loadRequests(): void {
-    this.requests = [
-      {
-        transactionId: 1,
-        memberId: 101,
-        memberName: 'John Doe',
-        bookId: 201,
-        bookName: 'Angular for Beginners',
-        status: 'pending' 
+    this.requestService.getAllTransactions().subscribe({
+      next: (data) => {
+        this.requests = data.map(req => ({ ...req, actionTaken: null })); // Add `actionTaken` field
+        console.log('Borrowing transactions loaded:', this.requests);
       },
-      {
-        transactionId: 2,
-        memberId: 102,
-        memberName: 'Jane Smith',
-        bookId: 202,
-        bookName: 'Mastering TypeScript',
-        status: 'pending' 
+      error: (err) => console.error('Failed to load transactions', err)
+    });
+  }
+
+  // Accept Request
+  acceptRequest(requestId: number, memberId: number, bookId: number): void {
+    this.requestService.acceptRequest(requestId, memberId, bookId).subscribe({
+      next: () => {
+        alert('Request accepted successfully.');
+        this.loadRequests();
       },
-      {
-        transactionId: 3,
-        memberId: 103,
-        memberName: 'Michael Johnson',
-        bookId: 203,
-        bookName: 'Reactive Programming in JavaScript',
-        status: 'pending' 
+      error: (err) => {
+        const errorMessage = err?.error?.message || 'An error occurred.';
+        alert('Failed to accept request: ' + errorMessage);
       }
-    ];
-
+    });
   }
-
-  acceptRequest(requestId: number): void {
-    console.log(`Accepted request with ID: ${requestId}`);
-    const request = this.requests.find(r => r.transactionId === requestId);
-    if (request) {
-      request.status = 'accepted';
-    }
-    alert('Request accepted');
+  
+  rejectRequest(requestId: number, memberId: number, bookId: number): void {
+    this.requestService.rejectRequest(requestId, memberId, bookId).subscribe({
+      next: () => {
+        alert('Request rejected successfully.');
+        this.loadRequests();
+      },
+      error: (err) => {
+        const errorMessage = err?.error?.message || 'An error occurred.';
+        alert('Failed to reject request: ' + errorMessage);
+      }
+    });
   }
-
-  rejectRequest(requestId: number): void {
-    console.log(`Rejected request with ID: ${requestId}`);
-    const request = this.requests.find(r => r.transactionId === requestId);
-    if (request) {
-      request.status = 'rejected';
-    }
-    alert('Request rejected');
-  }
+  
 }
