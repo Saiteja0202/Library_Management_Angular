@@ -89,6 +89,11 @@ button.btn-primary:hover:not(:disabled) {
   color: red;
 }
 
+.login-link{
+  align-items: center;
+  text-align: center;
+}
+
 /* Responsive tweaks */
 @media (max-width: 768px) {
   .d-flex {

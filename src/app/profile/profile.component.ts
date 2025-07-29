@@ -21,7 +21,7 @@ interface Profile {
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
   imports: [
-    CommonModule,  
+    CommonModule,
     FormsModule
   ],
 })
@@ -30,6 +30,12 @@ export class ProfileComponent implements OnInit {
   isPasswordUpdateVisible = false;
 
   profile: Profile = {
+    name: '',
+    email: '',
+    address: '',
+    phone: ''
+  };
+  editableProfile: Profile = {
     name: '',
     email: '',
     address: '',
@@ -49,15 +55,19 @@ export class ProfileComponent implements OnInit {
     this.profileService.getProfile().subscribe({
       next: data => {
         console.log(data);
-        
+
         this.profile = data},
-      
+
       error: err => console.error('Failed to fetch profile', err)
     });
   }
 
   toggleEditMode(): void {
     this.isEditMode = !this.isEditMode;
+
+    if (this.isEditMode) {
+        this.editableProfile = { ...this.profile };
+    }
   }
 
   togglePasswordUpdate(): void {
@@ -66,7 +76,7 @@ export class ProfileComponent implements OnInit {
 
   closePasswordModal(): void {
     this.isPasswordUpdateVisible = false;
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/member/profile']);
   }
 
   submitPasswordUpdate(form: NgForm): void {
@@ -78,7 +88,7 @@ export class ProfileComponent implements OnInit {
         },
         error: err => {
           console.log(err);
-          
+
           if (err.status === 400) {
             alert('Current password is incorrect.');
           } else if (err.status === 401) {
@@ -91,21 +101,22 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
-  
-  
+
+
 
   saveProfile(form: NgForm): void {
     if (form.valid) {
-      this.profileService.updateProfile(this.profile).subscribe({
-        
+      this.profileService.updateProfile(this.editableProfile).subscribe({
+
         next: () => {
           console.log('Profile updated successfully');
+          this.profile = { ...this.editableProfile };
           this.isEditMode = false;
           alert('Profile updated successfully!');
         },
         error: err => {
           console.log("error 123");
-          
+
           console.error('Profile update failed:', err)}
       });
     }

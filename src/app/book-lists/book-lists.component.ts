@@ -34,6 +34,14 @@ export class BookListsComponent implements OnInit, OnDestroy {
   // Store statuses separately, indexed by bookId
   bookStatuses: { [bookId: number]: string } = {};
 
+  bookCoverImages: { [key: number]: string } = {
+    1: 'SandyBiography.jpg',
+    4: 'HarryPotter-1.jpg',
+    5: 'HarryPotter-2.jpg',
+    6: 'HarryPotter-3.jpg',
+    7: 'HarryPotter-4.jpg',
+    9: '',
+  };
   private searchSubscription!: Subscription;
 
   showUpdateDialog = false;
@@ -101,6 +109,9 @@ export class BookListsComponent implements OnInit, OnDestroy {
       book.author.toLowerCase().includes(lowerTerm) ||
       book.genre.toLowerCase().includes(lowerTerm)
     );
+  }
+  getBookCover(bookId: number): string {
+    return this.bookCoverImages[bookId] || 'default-book.jpg';
   }
 
   setBookStatuses(transactions: BorrowingTransaction[]) {
@@ -251,7 +262,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
       return;
     }
-  
+
     this.http.post(
       `http://localhost:4321/books/return/${this.memberId}/${bookId}`,
       {},
@@ -260,7 +271,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       next: (res) => {
         alert(res || 'Book return initiated!');
         this.fetchBooks();
-  
+
         // Refresh statuses after return
         this.borrowingHistoryService
           .getTransactionsByMemberId(+this.memberId!)
