@@ -45,10 +45,10 @@ const routes: Routes = [
       { path: 'notifications', component: NotificationsComponent },
       { path: 'fines', component: FinesComponent },
       { path: 'history', component: BorrowingHistoryComponent },
-      {path:'requests',component:RequestsComponent}
+      {path:'requests',component:RequestsComponent},
+      { path: 'profile', component: ProfileComponent },
     ]
   },
-  { path: 'profile', component: ProfileComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

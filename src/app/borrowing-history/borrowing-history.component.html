@@ -1,30 +1,41 @@
-<h1>Borrowing History</h1>
-
-<table class="table table-bordered table-striped">
-  <thead class="table-dark">
-    <tr>
-      <th>Transaction ID</th>
-      <th>Member ID</th>
-      <th>Member name</th>
-      <th>Book ID</th>
-      <th>Borrow Date</th>
-      <th>Return Date</th>
-      <th>Status</th>
-   
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let txn of borrowingHistory">
-      <td>{{ txn.transactionId }}</td>
-      <td>{{txn.memberId}}</td>
-      <td>{{txn.memberName}}</td>
-      <td>{{ txn.book?.bookId }}</td>
-      <td>{{ txn.borrowDate }}</td>
-      <td>{{ txn.returnDate }}</td>
-      <td>{{ txn.status }}</td>
-      
-      
-    </tr>
-  </tbody>
-</table>
+<div class="history-container">
+  <h1>Borrowing History</h1>
+  <div class="filter-bar">
+    <label for="statusFilter">Filter by Status:</label>
+    <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="filterHistory()">
+      <option value="">All</option>
+      <option value="Borrowed">Borrowed</option>
+      <option value="Returned">Returned</option>
+    </select>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Member ID</th>
+          <th>Member Name</th>
+          <th>Book ID</th>
+          <th>Borrow Date</th>
+          <th>Return Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let txn of filteredBorrowingHistory">
+          <td>{{ txn.transactionId }}</td>
+          <td>{{ txn.memberId }}</td>
+          <td>{{ txn.memberName }}</td>
+          <td>{{ txn.book?.bookId }}</td>
+          <td>{{ txn.borrowDate }}</td>
+          <td>{{ txn.returnDate || '-' }}</td>
+          <td>
+            <span class="status" [ngClass]="txn.status.toLowerCase()">
+              {{ txn.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

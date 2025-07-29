@@ -19,7 +19,7 @@
   <!-- Logo -->
   <div class="library-logo">
     <img src="Library_Logo.png" />
-    <span>My Library</span>
+    <span>BookHub</span>
   </div>
 
   <!-- Nav Links -->
@@ -34,11 +34,24 @@
   <div class="search-container" *ngIf="searchVisible">
     <input
       type="text"
-      placeholder="Search by name, author, or genre..."
+      placeholder="Search books..."
       [(ngModel)]="searchTerm"
       (input)="filterBooks()"
     />
     <!-- <button class="search-btn" (click)="filterBooks()">🔍</button> -->
+  </div>
+
+  <!-- Profile -->
+  <div class="profile-container">
+    <button (click)="toggleDropdown()" class="profile-button">
+      <img src="Profile_Logo.png" class="profile-logo" />
+    </button>
+    <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
+      <div class="dropdown-content">
+        <a routerLink="/member/profile">Profile</a>
+        <a href="#" (click)="logout()">Logout</a>
+      </div>
+    </div>
   </div>
 </nav>
 

@@ -1,57 +1,144 @@
+<!-- Admin Add Button -->
 <div *ngIf="role === 'ADMIN'" class="admin-book-list-container">
-  <button (click)="openAddDialog()">Add New Book</button>
+  <button class="admin-add-button" (click)="openAddDialog()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </svg>
+    Add New Book
+  </button>
 </div>
 
+<!-- Book List -->
 <div class="book-list">
+  <div *ngIf="filteredBooks.length === 0" class="no-results">
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 21l-6-6"></path>
+      <circle cx="10" cy="10" r="7"></circle>
+    </svg>
+    <p>No books found matching your search.</p>
+  </div>
+
   <div class="book-card" *ngFor="let book of filteredBooks">
-    <h4>{{ book.bookName }}</h4>
-    <p><strong>Author:</strong> {{ book.author }}</p>
-    <p><strong>Genre:</strong> {{ book.genre }}</p>
-    <p class="meta"><strong>ISBN:</strong> {{ book.isbn }}</p>
-    <p class="meta"><strong>Published:</strong> {{ book.yearPublished }}</p>
-    <p [ngClass]="book.availableCopies > 0 ? 'availability' : 'unavailable'">
-      {{ book.availableCopies > 0 ? 'Available : ' + book.availableCopies : 'Unavailable' }}
-    </p>
-
-    <!-- Borrow Button or Status Text Based on Book Status -->
-    <div *ngIf="role === 'MEMBER'">
-      <ng-container [ngSwitch]="bookStatuses[book.bookId]">
-        
-        <!-- Display status labels -->
-        <span *ngSwitchCase="'PENDING'" style="color: red; font-weight: bold;">PENDING</span>
-        <span *ngSwitchCase="'BORROW_REJECTED'" style="color: red; font-weight: bold;">
-          BORROW REJECTED
-        </span>
-        <span *ngSwitchCase="'RETURN_PENDING'" style="color: red; font-weight: bold;">RETURN PENDING</span>
-        <span *ngSwitchCase="'RETURN_REJECTED'" style="color: red; font-weight: bold;">RETURN REJECTED</span>
-    
-        <!-- Borrow button or status text based on book status -->
-        <button *ngSwitchCase="'BORROW_REJECTED'" 
-                [disabled]="book.availableCopies === 0" 
-                (click)="borrowBook(book.bookId)">
-          Borrow
-        </button>
-    
-        <!-- Return button for books that are BORROWED or RETURN_REJECTED -->
-        <button *ngSwitchCase="'BORROWED'" (click)="returnBook(book.bookId)">Return</button>
-        <button *ngSwitchCase="'RETURN_REJECTED'" (click)="returnBook(book.bookId)" [disabled]="book.availableCopies === 0">
-          Return
-        </button>
-    
-        <!-- Default: Borrow button (if not returned/rejected) -->
-        <button *ngSwitchDefault 
-                [disabled]="book.availableCopies === 0"
-                (click)="borrowBook(book.bookId)">
-          {{ book.availableCopies > 0 ? 'Borrow' : 'Not Available' }}
-        </button>
-      </ng-container>
+    <!-- Book Header -->
+    <div class="book-header">
+      <h4>{{ book.bookName }}</h4>
+      <span class="genre-badge">{{ book.genre }}</span>
     </div>
-    
 
-    <!-- Admin Actions (Update and Delete) -->
-    <div *ngIf="role === 'ADMIN'">
-      <button (click)="openUpdateDialog(book.bookId)">Update</button>
-      <button (click)="confirmDelete(book.bookId)">Delete</button>
+    <!-- Book Content with Side Layout -->
+    <div class="book-content">
+      <div class="book-details">
+        <p class="author">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          {{ book.author }}
+        </p>
+        <div class="meta-info">
+          <p class="meta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            {{ book.yearPublished }}
+          </p>
+          <p class="meta isbn">ISBN: {{ book.isbn }}</p>
+        </div>
+
+        <!-- Status Labels for Members -->
+        <div *ngIf="role === 'MEMBER' && bookStatuses[book.bookId]" class="status-container">
+          <ng-container [ngSwitch]="bookStatuses[book.bookId]">
+            <!-- Borrow Pending Status -->
+            <span *ngSwitchCase="'PENDING'" class="status-label status-pending">
+              Borrow Pending
+            </span>
+            <span *ngSwitchCase="'BORROW_REJECTED'" class="status-label status-rejected">
+              BORROW REJECTED
+            </span>
+            <span *ngSwitchCase="'RETURN_PENDING'" class="status-label status-pending">
+              RETURN PENDING
+            </span>
+            <span *ngSwitchCase="'RETURN_REJECTED'" class="status-label status-rejected">
+              RETURN REJECTED
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Book Cover on the Right -->
+      <div class="book-cover-container">
+        <img [src]="getBookCover(book.bookId)" alt="{{ book.bookName }} cover" class="book-cover">
+      </div>
+    </div>
+
+    <!-- Card Footer -->
+    <div class="card-footer">
+      <p class="availability-status" [ngClass]="book.availableCopies > 0 ? 'available' : 'unavailable'">
+        <span class="status-dot"></span>
+        {{ book.availableCopies > 0 ? book.availableCopies + ' copies available' : 'Currently unavailable' }}
+      </p>
+
+      <!-- Member Actions -->
+      <div *ngIf="role === 'MEMBER'">
+        <ng-container [ngSwitch]="bookStatuses[book.bookId]">
+          <!-- Borrow button for rejected status -->
+          <button *ngSwitchCase="'BORROW_REJECTED'"
+                  class="action-button borrow-button"
+                  [disabled]="book.availableCopies === 0"
+                  [ngClass]="{'disabled': book.availableCopies === 0}"
+                  (click)="borrowBook(book.bookId)">
+            Borrow Book
+          </button>
+
+          <!-- Return button for borrowed or return rejected -->
+          <button *ngSwitchCase="'BORROWED'"
+                  class="action-button return-button"
+                  [disabled]="bookStatuses[book.bookId] === 'PENDING'"
+                  (click)="returnBook(book.bookId)">
+            {{ bookStatuses[book.bookId] !== 'PENDING' ? 'Return Book' : 'Not Available' }}
+          </button>
+
+          <button *ngSwitchCase="'RETURN_REJECTED'"
+                  class="action-button return-button"
+                  (click)="returnBook(book.bookId)">
+            Return Book
+          </button>
+
+          <!-- Default: Borrow button -->
+          <button *ngSwitchDefault
+                  class="action-button borrow-button"
+                  [disabled]="book.availableCopies === 0 || bookStatuses[book.bookId] === 'PENDING'"
+                  [ngClass]="{'disabled': book.availableCopies === 0 || bookStatuses[book.bookId] === 'PENDING'}"
+                  (click)="borrowBook(book.bookId)">
+            {{ book.availableCopies > 0 && bookStatuses[book.bookId] !== 'PENDING' ? 'Borrow Book' : 'Not Available' }}
+          </button>
+        </ng-container>
+      </div>
+
+      <!-- Admin Actions -->
+      <div *ngIf="role === 'ADMIN'" class="admin-actions">
+        <button class="action-button admin-update-button" (click)="openUpdateDialog(book.bookId)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+          Update
+        </button>
+        <button class="action-button admin-delete-button" (click)="confirmDelete(book.bookId)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Delete
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -59,29 +146,44 @@
 <!-- Update Dialog -->
 <div *ngIf="showUpdateDialog" class="dialog-backdrop">
   <div class="dialog">
-    <h3>Update Book</h3>
+    <div class="dialog-header">
+      <h3>Update Book</h3>
+      <button class="dialog-close" (click)="closeUpdateDialog()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
     <form (ngSubmit)="updateBook()">
-      <label>Book Name:
+      <div class="form-group">
+        <label>Book Name:</label>
         <input type="text" [(ngModel)]="updateBookModel.bookName" name="bookName" required>
-      </label>
-      <label>Author:
+      </div>
+      <div class="form-group">
+        <label>Author:</label>
         <input type="text" [(ngModel)]="updateBookModel.author" name="author" required>
-      </label>
-      <label>Genre:
+      </div>
+      <div class="form-group">
+        <label>Genre:</label>
         <input type="text" [(ngModel)]="updateBookModel.genre" name="genre" required>
-      </label>
-      <label>ISBN:
+      </div>
+      <div class="form-group">
+        <label>ISBN:</label>
         <input type="text" [(ngModel)]="updateBookModel.isbn" name="isbn" required>
-      </label>
-      <label>Published Year:
+      </div>
+      <div class="form-group">
+        <label>Published Year:</label>
         <input type="number" [(ngModel)]="updateBookModel.yearPublished" name="yearPublished" required>
-      </label>
-      <label>Available Copies:
+      </div>
+      <div class="form-group">
+        <label>Available Copies:</label>
         <input type="number" [(ngModel)]="updateBookModel.availableCopies" name="availableCopies" required>
-      </label>
-
-      <button type="submit">Save</button>
-      <button type="button" (click)="closeUpdateDialog()">Cancel</button>
+      </div>
+      <div class="dialog-actions">
+        <button type="submit" class="dialog-submit">Save Changes</button>
+        <button type="button" class="dialog-cancel" (click)="closeUpdateDialog()">Cancel</button>
+      </div>
     </form>
   </div>
 </div>
@@ -89,30 +191,44 @@
 <!-- Add Dialog -->
 <div *ngIf="showAddDialog" class="dialog-backdrop">
   <div class="dialog">
-    <h3>Add New Book</h3>
+    <div class="dialog-header">
+      <h3>Add New Book</h3>
+      <button class="dialog-close" (click)="closeAddDialog()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
     <form (ngSubmit)="addBook()">
-      <label>Book Name:
+      <div class="form-group">
+        <label>Book Name:</label>
         <input type="text" [(ngModel)]="addBookModel.bookName" name="bookName" required>
-      </label>
-      <label>Author:
+      </div>
+      <div class="form-group">
+        <label>Author:</label>
         <input type="text" [(ngModel)]="addBookModel.author" name="author" required>
-      </label>
-      <label>Genre:
+      </div>
+      <div class="form-group">
+        <label>Genre:</label>
         <input type="text" [(ngModel)]="addBookModel.genre" name="genre" required>
-      </label>
-      <label>ISBN:
+      </div>
+      <div class="form-group">
+        <label>ISBN:</label>
         <input type="text" [(ngModel)]="addBookModel.isbn" name="isbn" required>
-      </label>
-      <label>Published Year:
+      </div>
+      <div class="form-group">
+        <label>Published Year:</label>
         <input type="number" [(ngModel)]="addBookModel.yearPublished" name="yearPublished" required>
-      </label>
-      <label>Available Copies:
+      </div>
+      <div class="form-group">
+        <label>Available Copies:</label>
         <input type="number" [(ngModel)]="addBookModel.availableCopies" name="availableCopies" required>
-      </label>
-
-      <button type="submit">Add</button>
-      <button type="button" (click)="closeAddDialog()">Cancel</button>
+      </div>
+      <div class="dialog-actions">
+        <button type="submit" class="dialog-submit">Add Book</button>
+        <button type="button" class="dialog-cancel" (click)="closeAddDialog()">Cancel</button>
+      </div>
     </form>
   </div>
 </div>
-
