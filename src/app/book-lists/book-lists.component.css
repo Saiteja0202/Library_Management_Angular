@@ -1,188 +1,296 @@
 .book-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    padding: 2rem;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 2rem;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.book-card {
+  background: linear-gradient(135deg, #fefefe, #f3f3fd);
+  border-radius: 15px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  width: 240px;
+  padding: 20px;
+  margin: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.book-card h4 {
+  margin-bottom: 10px;
+  color: #4e54c8;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.book-card p {
+  margin: 5px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.book-card .meta {
+  font-size: 13px;
+  color: #888;
+}
+
+.book-card .availability {
+  margin-top: 8px;
+  font-weight: bold;
+  color: #2b8a3e;
+}
+
+
+.admin-book-list-container button {
+  background-color: #4e54c8;  /* main purple color */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(78, 84, 200, 0.6);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin: auto;
+  display: block;
+  max-width: 200px;
+  text-align: center;
+}
+
+.admin-book-list-container button:hover {
+  background-color: #393fbf;
+  box-shadow: 0 10px 20px rgba(57, 63, 191, 0.7);
+}
+
+.admin-book-list-container {
+  text-align: center;
+  padding: 1rem;
+}
+
+
+.book-card .unavailable {
+  color: #d63447;
+}
+
+.book-card button {
+  margin-top: 12px;
+  padding: 12px 15px;
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.book-card button:hover:not(:disabled) {
+  background-color: #393fbf;
+}
+
+.book-card button:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Dialog Styles */
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.dialog {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem 2rem;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.dialog h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #4e54c8;
+}
+
+.dialog form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.dialog form input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+.dialog form button {
+  margin-top: 1rem;
+  padding: 12px 18px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dialog form button[type="submit"] {
+  background-color: #4e54c8;
+  color: white;
+  margin-right: 0.75rem;
+}
+
+.dialog form button[type="submit"]:hover {
+  background-color: #393fbf;
+}
+
+.dialog form button[type="button"] {
+  background-color: #ccc;
+}
+
+.dialog form button[type="button"]:hover {
+  background-color: #bbb;
+}
+
+/* PROFILE STYLES (unchanged) */
+.profile-logo {
+  height: 30px;
+  width: 30px;
+}
+
+.profile-container {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-logo {
+  width: 40px;
+  height: 40px;
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+  position: absolute;
+  top: 45px;
+  left: -30px;
+  background-color: white;
+  box-shadow: 0px 10px 10px rgb(40, 40, 40);
+  border-radius: 4px;
+  width: 100px;
+  height: 60px;
+  display: none;
+}
+
+.dropdown-menu.visible {
+  display: block;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 768px) {
+  .book-list {
+    gap: 1rem;
+    padding: 1rem;
   }
-  
 
   .book-card {
-    background: linear-gradient(135deg, #fefefe, #f3f3fd);
-    border-radius: 15px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    width: 240px;
-    padding: 20px;
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Segoe UI', sans-serif;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-  }
-  
-  .book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
-  }
-  
-  .book-card h4 {
-    margin-bottom: 10px;
-    color: #4e54c8;
-    font-size: 22px;
-    font-weight: 600;
-  }
-  
-  .book-card p {
-    margin: 5px 0;
-    font-size: 15px;
-    color: #444;
-  }
-  
-  .book-card .meta {
-    font-size: 13px;
-    color: #888;
-  }
-  
-  .book-card .availability {
-    margin-top: 8px;
-    font-weight: bold;
-    color: #2b8a3e;
-  }
-  
-  .book-card .unavailable {
-    color: #d63447;
-  }
-  
-  .book-card button {
-    margin-top: 12px;
-    padding: 10px;
-    background-color: #4e54c8;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    width: 45%;
+    padding: 16px;
     font-size: 14px;
   }
-  
-  .book-card button:hover {
-    background-color: #393fbf;
+
+  .book-card h4 {
+    font-size: 18px;
   }
-  
-  /* PROFILE STYLES */
-  .profile-logo {
-    height: 30px;
-    width: 30px;
+
+  .book-card p {
+    font-size: 14px;
   }
-  
-  .profile-container {
-    position: relative;
+
+  .book-card button {
+    font-size: 13px;
+    padding: 10px;
   }
-  
-  .profile-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .profile-logo {
-    width: 40px;
-    height: 40px;
-  }
-  
-  /* DROPDOWN */
+
   .dropdown-menu {
-    position: absolute;
-    top: 45px;
-    left: -30px;
-    background-color: white;
-    box-shadow: 0px 10px 10px rgb(40, 40, 40);
-    border-radius: 4px;
-    width: 100px;
+    top: 50px;
+    left: -20px;
+    width: 90px;
     height: 60px;
-    display: none;
   }
-  
-  .dropdown-menu.visible {
-    display: block;
+}
+
+@media (max-width: 480px) {
+  .book-list {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
   }
-  
-  /* RESPONSIVE BREAKPOINTS */
-  @media (max-width: 768px) {
-    .book-list {
-      gap: 1rem;
-      padding: 1rem;
-    }
-  
-    .book-card {
-      width: 45%;
-      padding: 16px;
-      font-size: 14px;
-    }
-  
-    .book-card h4 {
-      font-size: 18px;
-    }
-  
-    .book-card p {
-      font-size: 14px;
-    }
-  
-    .book-card button {
-      font-size: 13px;
-      padding: 8px;
-    }
-  
-    .dropdown-menu {
-      top: 50px;
-      left: -20px;
-      width: 90px;
-      height: 60px;
-    }
+
+  .book-card {
+    width: 90%;
+    padding: 16px;
   }
-  
-  @media (max-width: 480px) {
-    .book-list {
-      flex-direction: column;
-      align-items: center;
-      padding: 1rem;
-    }
-  
-    .book-card {
-      width: 90%;
-      padding: 16px;
-    }
-  
-    .book-card h4 {
-      font-size: 16px;
-    }
-  
-    .book-card p,
-    .book-card .meta,
-    .book-card .availability {
-      font-size: 13px;
-    }
-  
-    .book-card button {
-      width: 100%;
-      font-size: 14px;
-    }
-  
-    .profile-logo {
-      width: 32px;
-      height: 32px;
-    }
-  
-    .dropdown-menu {
-      top: 42px;
-      left: -10px;
-      width: 95px;
-      height: auto;
-      padding: 0.5rem;
-    }
+
+  .book-card h4 {
+    font-size: 16px;
   }
-  
+
+  .book-card p,
+  .book-card .meta,
+  .book-card .availability {
+    font-size: 13px;
+  }
+
+  .book-card button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .profile-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dropdown-menu {
+    top: 42px;
+    left: -10px;
+    width: 95px;
+    height: auto;
+    padding: 0.5rem;
+  }
+}
