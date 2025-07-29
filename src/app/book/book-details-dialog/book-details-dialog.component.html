@@ -1,6 +1,5 @@
 <div class="modal-overlay">
   <div class="modal-content">
-
     <button class="close-btn" (click)="closeDialog()">×</button>
 
     <img [src]="book.bookImage" alt="{{ book.bookName }}" width="120" />
@@ -12,8 +11,8 @@
     <p><strong>ISBN:</strong> {{ book.isbn }}</p>
     <p><strong>Available Copies:</strong> {{ book.availableCopies }}</p>
 
-    <button (click)="borrowBook()" class="borrow-btn">
-      Borrow Book
+    <button class="borrow-btn" (click)="redirectToLogin()">
+      Please login to continue
     </button>
   </div>
 </div>

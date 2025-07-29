@@ -7,8 +7,10 @@
    <span style="font-size: 10px;display: flex;">{{role}}</span>
     <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
       <div class="dropdown-content">
-        <a routerLink="/profile">Profile</a>
-      
+
+        <a routerLink="/member/profile">Profile</a>
+        <br />
+
         <a href="#" (click)="logout()">Logout</a>
       </div>
     </div>
@@ -30,11 +32,11 @@
 
   <!-- Search -->
   <div class="search-container" *ngIf="searchVisible">
-    <input 
-      type="text" 
-      placeholder="Search by name, author, or genre..." 
-      [(ngModel)]="searchTerm" 
-      (input)="filterBooks()" 
+    <input
+      type="text"
+      placeholder="Search by name, author, or genre..."
+      [(ngModel)]="searchTerm"
+      (input)="filterBooks()"
     />
     <!-- <button class="search-btn" (click)="filterBooks()">🔍</button> -->
   </div>

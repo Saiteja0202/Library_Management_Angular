@@ -14,15 +14,15 @@ export class AuthService {
       userPassword: password
     };
     console.log("yeah");
-    
+
     return this.http.post<{ [key: string]: string }>(
       'http://localhost:4321/login',
       body
     );
   }
-  
-  
-  
+
+
+
 
   saveToken(username: string, password: string): void {
     const token = btoa(`${username}:${password}`);
@@ -34,6 +34,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean{
-      return this.getToken != null || this.getToken != undefined;
+      return this.getToken() != null || this.getToken() != undefined;
   }
 }

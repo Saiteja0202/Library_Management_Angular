@@ -27,6 +27,7 @@ interface Book {
 export class BookListsComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   filteredBooks: Book[] = [];
+  borrowedBookIds: number[] = [];
   role: string | null = null;
   memberId: string | null = null;
 
@@ -69,6 +70,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     });
   }
 
+
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
@@ -78,6 +80,18 @@ export class BookListsComponent implements OnInit, OnDestroy {
       this.books = data;
       this.filteredBooks = data;
     });
+  }
+
+  fetchBorrowedBooks(memberId: number) {
+    this.http.get<any[]>(`http://localhost:4321/books/get-borrowed-books/${memberId}`)
+      .subscribe({
+        next: (data) => {
+          this.borrowedBookIds = data.map(book => book.bookId);
+        },
+        error: (err) => {
+          console.error('Error fetching borrowed books:', err);
+        }
+      });
   }
 
   filterBooks(term: string) {
@@ -260,5 +274,5 @@ export class BookListsComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
 }
