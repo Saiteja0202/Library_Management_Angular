@@ -1,17 +1,5 @@
 <nav class="navbar">
-    <!-- Profile -->
-    <div class="profile-container">
-      <button (click)="toggleDropdown()" class="profile-button">
-        <img src="Profile_Logo.png" class="profile-logo" />
-      </button>
-            <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
-        <div class="dropdown-content">
-          <a routerLink="/profile">Profile</a>
-          <a href="#" (click)="logout()">Logout</a>
-          
-        </div>
-      </div>
-    </div>
+  
   
     <!-- Logo -->
     <div class="library-logo">
@@ -37,6 +25,20 @@
         (input)="filterBooks()" 
       />
       <!-- <button class="search-btn" (click)="filterBooks()">🔍</button> -->
+    </div>
+
+
+    <div class="profile-container">
+      <button (click)="toggleDropdown()" class="profile-button">
+        <img src="Profile_Logo.png" class="profile-logo" />
+      </button>
+      <span style="font-size: 10px;display: flex;">{{role}}</span>
+      <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
+        <div class="dropdown-content">
+          <a routerLink="/member/profile">Profile</a>
+          <a href="#" (click)="logout()">Logout</a>
+        </div>
+      </div>
     </div>
   </nav>
   

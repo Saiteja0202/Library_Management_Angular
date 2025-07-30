@@ -19,7 +19,6 @@
     </svg>
     <p>No books found matching your search.</p>
   </div>
-
   <div class="book-card" *ngFor="let book of filteredBooks">
     <!-- Book Header -->
     <div class="book-header">
@@ -87,41 +86,37 @@
 
       <!-- Member Actions -->
       <div *ngIf="role === 'MEMBER'">
-        <ng-container [ngSwitch]="bookStatuses[book.bookId]">
-          <!-- Borrow button for rejected status -->
-          <button *ngSwitchCase="'BORROW_REJECTED'"
-                  class="action-button borrow-button"
-                  [disabled]="book.availableCopies === 0"
-                  [ngClass]="{'disabled': book.availableCopies === 0}"
-                  (click)="borrowBook(book.bookId)">
-            Borrow Book
-          </button>
-
-          <!-- Return button for borrowed or return rejected -->
-          <button *ngSwitchCase="'BORROWED'"
+        <ng-container>
+      
+        
+      
+          <!-- Return button when status is BORROWED -->
+          <button *ngIf="bookStatuses[book.bookId] === 'BORROWED'"
                   class="action-button return-button"
-                  [disabled]="bookStatuses[book.bookId] === 'PENDING'"
+                  [disabled]="bookStatuses[book.bookId] === 'PENDING' || bookStatuses[book.bookId] === 'RETURN_PENDING'"
                   (click)="returnBook(book.bookId)">
-            {{ bookStatuses[book.bookId] !== 'PENDING' ? 'Return Book' : 'Not Available' }}
+            Return Book
           </button>
-
-          <button *ngSwitchCase="'RETURN_REJECTED'"
+      
+          <!-- Return button when status is RETURN_REJECTED -->
+          <button *ngIf="bookStatuses[book.bookId] === 'RETURN_REJECTED'"
                   class="action-button return-button"
                   (click)="returnBook(book.bookId)">
             Return Book
           </button>
-
-          <!-- Default: Borrow button -->
-          <button *ngSwitchDefault
+      
+          <!-- Borrow button for other cases (only if available copies > 0 and no relevant statuses) -->
+          <button *ngIf="bookStatuses[book.bookId] !== 'PENDING' && bookStatuses[book.bookId] !== 'RETURN_REJECTED' && bookStatuses[book.bookId] !== 'RETURN_PENDING' && bookStatuses[book.bookId] !== 'BORROWED' || bookStatuses[book.bookId] === 'RETURNED'"
                   class="action-button borrow-button"
-                  [disabled]="book.availableCopies === 0 || bookStatuses[book.bookId] === 'PENDING'"
-                  [ngClass]="{'disabled': book.availableCopies === 0 || bookStatuses[book.bookId] === 'PENDING'}"
+                  [disabled]="book.availableCopies <= 0 || bookStatuses[book.bookId] === 'PENDING'"
+                  [ngClass]="{'disabled': book.availableCopies <= 0 || bookStatuses[book.bookId] === 'PENDING'}"
                   (click)="borrowBook(book.bookId)">
-            {{ book.availableCopies > 0 && bookStatuses[book.bookId] !== 'PENDING' ? 'Borrow Book' : 'Not Available' }}
+            Borrow Book
           </button>
+      
         </ng-container>
       </div>
-
+      
       <!-- Admin Actions -->
       <div *ngIf="role === 'ADMIN'" class="admin-actions">
         <button class="action-button admin-update-button" (click)="openUpdateDialog(book.bookId)">
@@ -141,6 +136,8 @@
       </div>
     </div>
   </div>
+
+ 
 </div>
 
 <!-- Update Dialog -->
@@ -162,7 +159,7 @@
       </div>
       <div class="form-group">
         <label>Author:</label>
-        <input type="text" [(ngModel)]="updateBookModel.author" name="author" required>
+        <input  type="text" [(ngModel)]="updateBookModel.author" name="author" required>
       </div>
       <div class="form-group">
         <label>Genre:</label>
@@ -232,3 +229,4 @@
     </form>
   </div>
 </div>
+

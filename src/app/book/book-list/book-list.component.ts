@@ -33,7 +33,6 @@ export class BookListComponent implements OnInit {
   getBookImage(bookName: string): string {
     const imageMap: { [key: string]: string } = {
       'Sandy Biography': 'SandyBiography.jpg',
-      'Harry Potter Book-5': '',
       'Harry Potter Book-4': 'HarryPotter-4.jpg',
       'Harry Potter Book-3': 'HarryPotter-3.jpg',
       'Harry Potter Book-2': 'HarryPotter-2.jpg',

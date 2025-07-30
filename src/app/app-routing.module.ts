@@ -39,7 +39,7 @@ const routes: Routes = [
     ],
   },
 
-  { path: 'admin', component: AdminComponent, children: [
+  { path: 'admin', component: AdminComponent,canActivate: [AuthGuard], children: [
     { path: '', redirectTo: 'book-lists', pathMatch: 'full' },
       {path:'book-lists',component:BookListsComponent},
       { path: 'notifications', component: NotificationsComponent },
