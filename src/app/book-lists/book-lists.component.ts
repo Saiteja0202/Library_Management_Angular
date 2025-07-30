@@ -35,7 +35,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
   bookStatuses: { [bookId: number]: string } = {};
 
   bookCoverImages: { [key: number]: string } = {
-    1: 'SandyBiography.jpg',
+    1: 'Java_Book.jpg',
     4: 'HarryPotter-1.jpg',
     5: 'HarryPotter-2.jpg',
     6: 'HarryPotter-3.jpg',
@@ -63,7 +63,6 @@ export class BookListsComponent implements OnInit, OnDestroy {
     this.memberId = localStorage.getItem('memberId');
 
     this.fetchBooks();
-
     // Load borrowing statuses if member is logged in
     if (this.role === 'MEMBER' && this.memberId) {
       this.borrowingHistoryService
@@ -136,7 +135,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { observe: 'response', responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert(res.body || 'Book borrowed successfully!');
+        alert('Book borrowed pending for approval');
         this.fetchBooks();
         // Refresh statuses after borrowing
         this.borrowingHistoryService
@@ -150,7 +149,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
         if (typeof err.error === 'string') {
           alert(err.error);
         } else {
-          alert('Error borrowing book.');
+          alert('Error borrowing because the book is in use.');
         }
       }
     });
@@ -269,10 +268,9 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert(res || 'Book return initiated!');
+        alert('Book return initiated!');
         this.fetchBooks();
 
-        // Refresh statuses after return
         this.borrowingHistoryService
           .getTransactionsByMemberId(+this.memberId!)
           .subscribe(transactions => {

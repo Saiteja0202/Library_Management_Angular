@@ -21,14 +21,14 @@ export class AdminComponent {
   books: any[] = [];
   searchTerm: string = '';
   filteredBooks: any[] = []; 
-  
+  role: string | null = null;
 
   constructor(private http: HttpClient,private router: Router,private bookSearchService: BookSearchService) {
     this.fetchBooks();
   }
 
   ngOnInit(): void {
-    
+    this.role = localStorage.getItem('role');
     const currentRoute = this.router.url;
     this.searchVisible = currentRoute === '/admin/book-lists';
   

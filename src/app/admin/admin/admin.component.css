@@ -1,208 +1,189 @@
-/* Base Reset */
+/* Reset and Base */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f8f9fc;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: #b7baf5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Logo */
+.library-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #4e54c8;
+}
+
+.library-logo img {
+  height: 38px;
+  width: 38px;
+}
+
+/* Nav Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+  background-color: #e8ebff;
+  color: #4e54c8;
+}
+
+/* Search */
+.search-container {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.search-container input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  width: 240px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-container input:focus {
+  border-color: #4e54c8;
+}
+
+.search-container button {
+  background: #4e54c8;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.search-container button:hover {
+  background: #3c41b0;
+}
+
+/* Profile */
+.profile-container {
+  position: relative;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4e54c8;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  padding: 1rem;
+  min-width: 150px;
+  display: none;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-menu.visible {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+  color: #4e54c8;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
   }
-  
-  /* Navbar Container */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .navbar {
-    display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    justify-content: space-between;
-    background: linear-gradient(to right, #4e54c8, #8f94fb);
-    padding: 1rem 2rem;
-    color: white;
-    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
   }
-  
-  /* Logo Section */
-  .library-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.25rem;
-  }
-  
-  .library-logo img {
-    height: 35px;
-    width: 35px;
-  }
-  
-  /* Navigation Links */
+
   .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
+    margin-top: 10px;
+    gap: 1.2rem;
     flex-wrap: wrap;
-    padding: 0;
-    margin: 0;
+    justify-content: center;
   }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .nav-links .active {
-    background-color: #575b9c;
-    border-radius: 10px;
-    padding: 5px 10px;
-  }
-  
-  /* Search */
+
   .search-container {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 0.5rem;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
   }
-  
+
   .search-container input {
-    padding: 0.75rem 1rem;
-    width: 300px;
-    border-radius: 8px;
-    border: none;
+    width: 80%;
   }
-  
-  .search-container button {
-    padding: 0.6rem;
-    width: 46px;
-    height: 46px;
-    border: none;
-    border-radius: 8px;
-    background-color: white;
-    cursor: pointer;
-  }
-  
-  /* Profile Dropdown */
-  .profile-container {
-    position: relative;
-  }
-  
-  .profile-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 1px;
-    border-radius: 90px;
-  }
-  
-  .profile-button:hover {
-    background-color: rgb(234, 234, 234);
-  }
-  
-  .profile-logo {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 45px;
-    left: -30px;
-    background-color: white;
-    box-shadow: 0px 10px 10px rgba(40, 40, 40, 0.3);
-    border-radius: 4px;
-    width: 120px;
-    height: auto;
-    display: none;
-    padding: 10px;
-    z-index: 1000;
-  }
-  
-  .dropdown-content {
-    text-align: center;
-  }
-  
-  .dropdown-menu.visible {
-    display: block;
-  }
-  
-  .dropdown-menu a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    padding: 5px 0;
-  }
-  
-  .dropdown-menu a:hover {
-    color: #4e54c8;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .navbar {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .library-logo {
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-  
-    .nav-links {
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 10px 0;
-    }
-  
-    .search-container {
-      justify-content: center;
-      flex-direction: column;
-      width: 100%;
-      padding-top: 1rem;
-    }
-  
-    .search-container input {
-      width: 90%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .nav-links {
-      gap: 1rem;
-      font-size: 0.95rem;
-    }
-  
-    .search-container input {
-      font-size: 0.9rem;
-      padding: 0.6rem;
-    }
-  
-    .search-btn {
-      width: 40px;
-      height: 40px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .navbar {
-      padding: 1rem;
-    }
-  
-    .library-logo span {
-      font-size: 1rem;
-    }
-  
-    .nav-links {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .search-container input {
-      width: 100%;
-    }
-  
-    .search-container {
-      align-items: stretch;
-    }
-  
-    .dropdown-menu {
-      left: auto;
-      right: 0;
-    }
-  }
-  
+}

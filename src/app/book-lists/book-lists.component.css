@@ -439,9 +439,11 @@
 .dialog {
   background-color: #ffffff;
   padding: 2rem;
+
   border-radius: 16px;
   width: 100%;
   max-width: 500px;
+
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
   animation: slideUp 0.3s ease-in-out;
   position: relative;
@@ -487,7 +489,7 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+
 }
 
 .form-group label {

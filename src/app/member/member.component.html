@@ -1,10 +1,10 @@
 <nav class="navbar">
   <!-- Profile -->
-  <div class="profile-container">
+  <!-- <div class="profile-container">
     <button (click)="toggleDropdown()" class="profile-button">
       <img src="Profile_Logo.png" class="profile-logo" />
     </button>
-   <span style="font-size: 10px;display: flex;">{{role}}</span>
+    <span style="font-size: 10px;display: flex;">{{role}}</span>
     <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
       <div class="dropdown-content">
 
@@ -14,7 +14,7 @@
         <a href="#" (click)="logout()">Logout</a>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Logo -->
   <div class="library-logo">
@@ -24,7 +24,8 @@
 
   <!-- Nav Links -->
   <ul class="nav-links">
-    <li><a routerLink="/member/book-lists" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+    <li><a routerLink="/member/book-lists" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    </li>
     <li><a routerLink="/member/history" routerLinkActive="active">History</a></li>
     <li><a routerLink="/member/fines" routerLinkActive="active">Fines</a></li>
     <li><a routerLink="/member/notifications" routerLinkActive="active">Notifications</a></li>
@@ -32,12 +33,7 @@
 
   <!-- Search -->
   <div class="search-container" *ngIf="searchVisible">
-    <input
-      type="text"
-      placeholder="Search books..."
-      [(ngModel)]="searchTerm"
-      (input)="filterBooks()"
-    />
+    <input type="text" placeholder="Search books..." [(ngModel)]="searchTerm" (input)="filterBooks()" />
     <!-- <button class="search-btn" (click)="filterBooks()">🔍</button> -->
   </div>
 
@@ -46,6 +42,7 @@
     <button (click)="toggleDropdown()" class="profile-button">
       <img src="Profile_Logo.png" class="profile-logo" />
     </button>
+    <span style="font-size: 10px;display: flex;">{{role}}</span>
     <div [ngClass]="{'dropdown-menu': true, 'visible': dropdownVisible}">
       <div class="dropdown-content">
         <a routerLink="/member/profile">Profile</a>
