@@ -22,12 +22,16 @@
           <td style="text-align: center;">{{ fine.fineStatus }}</td>
           <td style="text-align: center;">{{ fine.transactionDate }}</td>
           <td *ngIf="role === 'MEMBER'" style="text-align: center;">
-            <button 
-              (click)="payFine(fine.fineId)" 
-              [disabled]="fine.fineStatus === 'PAID'">
-              Pay
-            </button>
+            <ng-container *ngIf="fine.fineStatus !== 'PAID'; else paidText">
+              <button (click)="payFine(fine.fineId)">
+                Pay
+              </button>
+            </ng-container>
+            <ng-template #paidText>
+              <span style="color: green; font-weight: bold;">PAID</span>
+            </ng-template>
           </td>
+          
           
           
         </tr>
