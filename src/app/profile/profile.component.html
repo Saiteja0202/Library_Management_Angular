@@ -87,32 +87,33 @@
 
     <!-- Password Modal -->
     <section *ngIf="isPasswordUpdateVisible" class="modal-backdrop">
-      <div class="modal">
-        <button class="close-btn" (click)="closePasswordModal()">×</button>
-        <h3 class="modal-title">Update Password</h3>
-        <form #passwordForm="ngForm" (ngSubmit)="submitPasswordUpdate(passwordForm)" class="form-layout">
-          <div class="form-group">
-            <label for="current-password">Current Password:</label>
-            <input type="password" id="current-password" name="currentPassword"
-              [(ngModel)]="currentPassword" required #currentPasswordField="ngModel" />
-          </div>
-
-          <div class="form-group">
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="newPassword"
-              [(ngModel)]="newPassword" required minlength="6" maxlength="20" pattern="^.{6,20}$"
-              #newPasswordField="ngModel" />
-            <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="error-message">
-              <small *ngIf="newPasswordField.errors?.['required']">Required.</small>
-              <small *ngIf="newPasswordField.errors?.['minlength']">Min 6 chars.</small>
-              <small *ngIf="newPasswordField.errors?.['maxlength']">Max 20 chars.</small>
-              <small *ngIf="newPasswordField.errors?.['pattern']">Must be 6–20 characters.</small>
-            </div>
-          </div>
-
-          <button type="submit" class="btn common-button" [disabled]="passwordForm.invalid">Update Password</button>
-        </form>
+  <div class="modal">
+    <button class="close-btn" (click)="closePasswordModal()">×</button>
+    <h3 class="modal-title">Update Password</h3>
+    <form #passwordForm="ngForm" (ngSubmit)="submitPasswordUpdate(passwordForm)" class="form-layout">
+      <div class="form-group">
+        <label for="current-password">Current Password:</label>
+        <input type="password" id="current-password" name="currentPassword"
+               [(ngModel)]="currentPassword" required #currentPasswordField="ngModel" />
       </div>
-    </section>
+
+      <div class="form-group">
+        <label for="new-password">New Password:</label>
+        <input type="password" id="new-password" name="newPassword"
+               [(ngModel)]="newPassword" required minlength="6" maxlength="20" pattern="^.{6,20}$"
+               #newPasswordField="ngModel" />
+        <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="error-message">
+          <small *ngIf="newPasswordField.errors?.['required']">Required.</small>
+          <small *ngIf="newPasswordField.errors?.['minlength']">Min 6 chars.</small>
+          <small *ngIf="newPasswordField.errors?.['maxlength']">Max 20 chars.</small>
+          <small *ngIf="newPasswordField.errors?.['pattern']">Must be 6–20 characters.</small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn common-button" [disabled]="passwordForm.invalid" (click)="closePasswordModal1()">Update Password</button>
+    </form>
+  </div>
+</section>
+
   </div>
 </div>
