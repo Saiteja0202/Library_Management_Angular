@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registration',
-  standalone:false,
+  standalone: false,
   templateUrl: './registration.component.html',
-  styleUrl:'./registration.component.css'
+  styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
   member = {
@@ -23,18 +24,19 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.errorMessage = '';
-    this.http.post('http://localhost:4321/member/register', this.member,{
-      responseType: 'text'  
+    this.http.post('http://localhost:4321/member/register', this.member, {
+      responseType: 'text'
     })
-      .subscribe({
-        next: () => {
-          alert('Registration successful!');
-          this.router.navigate(['/login']); 
-        },
-        error: err => {
-          console.log(err);
-          this.errorMessage = err.error || 'Registration failed. Try again.';
-        }
-      });
+    .subscribe({
+      next: () => {
+        Swal.fire('Success', 'Registration successful!', 'success');
+        this.router.navigate(['/login']);
+      },
+      error: err => {
+        console.log(err);
+        this.errorMessage = err.error || 'Registration failed. Try again.';
+        Swal.fire('Error', this.errorMessage, 'error');
+      }
+    });
   }
 }

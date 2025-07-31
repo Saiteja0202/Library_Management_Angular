@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { Subscription } from 'rxjs';
 import { BookSearchService } from '../book-search.service';
 import { Router } from '@angular/router';
@@ -77,7 +78,6 @@ export class BookListsComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe();
   }
@@ -109,6 +109,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       book.genre.toLowerCase().includes(lowerTerm)
     );
   }
+
   getBookCover(bookId: number): string {
     return this.bookCoverImages[bookId] || 'default-book.jpg';
   }
@@ -124,7 +125,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
 
   borrowBook(bookId: number) {
     if (!this.memberId) {
-      alert('You must be logged in to borrow a book.');
+      Swal.fire('Error', 'You must be logged in to borrow a book.', 'error');
       this.router.navigate(['/login']);
       return;
     }
@@ -135,7 +136,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { observe: 'response', responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert('Book borrowed pending for approval');
+        Swal.fire('Success', 'Book borrow pending for approval', 'success');
         this.fetchBooks();
         // Refresh statuses after borrowing
         this.borrowingHistoryService
@@ -147,9 +148,9 @@ export class BookListsComponent implements OnInit, OnDestroy {
       error: (err) => {
         console.error(err);
         if (typeof err.error === 'string') {
-          alert(err.error);
+          Swal.fire('Error', err.error, 'error');
         } else {
-          alert('Error borrowing because the book is in use.');
+          Swal.fire('Error', 'Error borrowing because the book is in use.', 'error');
         }
       }
     });
@@ -195,21 +196,30 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert(res || 'Book updated successfully!');
+        Swal.fire('Success', res || 'Book updated successfully!', 'success');
         this.closeUpdateDialog();
         this.fetchBooks();
       },
       error: (err) => {
         console.error(err);
-        alert('Error updating book.');
+        Swal.fire('Error', 'Error updating book.', 'error');
       }
     });
   }
 
   confirmDelete(bookId: number) {
-    if (confirm('Are you sure you want to delete this book?')) {
-      this.deleteBook(bookId);
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this book!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteBook(bookId);
+      }
+    });
   }
 
   deleteBook(bookId: number) {
@@ -218,12 +228,12 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert(res || 'Book deleted successfully!');
+        Swal.fire('Deleted!', res || 'Book deleted successfully!', 'success');
         this.fetchBooks();
       },
       error: (err) => {
         console.error(err);
-        alert('Error deleting book.');
+        Swal.fire('Error', 'Error deleting book.', 'error');
       }
     });
   }
@@ -232,6 +242,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     this.addBookModel = {};  // reset form model
     this.showAddDialog = true;
   }
+
   closeAddDialog() {
     this.showAddDialog = false;
     this.addBookModel = {};
@@ -244,20 +255,20 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert(res || 'Book added successfully!');
+        Swal.fire('Success', res || 'Book added successfully!', 'success');
         this.closeAddDialog();
         this.fetchBooks(); // refresh book list
       },
       error: (err) => {
         console.error(err);
-        alert('Error adding book.');
+        Swal.fire('Error', 'Error adding book.', 'error');
       }
     });
   }
 
   returnBook(bookId: number) {
     if (!this.memberId) {
-      alert('You must be logged in to return a book.');
+      Swal.fire('Error', 'You must be logged in to return a book.', 'error');
       this.router.navigate(['/login']);
       return;
     }
@@ -268,7 +279,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
-        alert('Book return initiated!');
+        Swal.fire('Success', 'Book return initiated!', 'success');
         this.fetchBooks();
 
         this.borrowingHistoryService
@@ -279,9 +290,8 @@ export class BookListsComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error(err);
-        alert('Error returning book.');
+        Swal.fire('Error', 'Error returning book.', 'error');
       }
     });
   }
-
 }

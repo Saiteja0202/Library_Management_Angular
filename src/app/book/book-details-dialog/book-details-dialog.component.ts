@@ -3,6 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from '../../auth.service'; // Adjust path as per your auth setup
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book-details-dialog',
@@ -15,12 +16,12 @@ export class BookDetailsDialogComponent {
 
   borrowBook() {
     if (!this.auth.isLoggedIn()) {
-      alert('Please login to borrow a book.');
+      Swal.fire('Login Required', 'Please login to borrow a book.', 'warning');
       return;
     }
 
     // TODO: Call borrow service here
-    alert(`Book "${this.book.bookName}" borrowed successfully!`);
+    Swal.fire('Success', `Book "${this.book.bookName}" borrowed successfully!`, 'success');
   }
 
   redirectToLogin() {

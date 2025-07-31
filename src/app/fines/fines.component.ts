@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Fine, FinesServicesService } from './fines-services.service';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fines',
@@ -26,28 +27,28 @@ export class FinesComponent implements OnInit {
       this.finesService.getAllFines().subscribe(data => {
         this.fines = data;
       }, error => {
-        alert('Error fetching fines for admin.');
+        Swal.fire('Error', 'Error fetching fines for admin.', 'error');
       });
     } else if (this.role === 'MEMBER' && this.memberId) {
       // Fetch fines for a specific member if role is MEMBER
       this.finesService.getFinesByMemberId(this.memberId).subscribe(data => {
         this.fines = data;
       }, error => {
-        alert('Error fetching fines for member.');
+        Swal.fire('Error', 'Error fetching fines for member.', 'error');
       });
     } else {
-      alert('Role or member ID not found.');
+      Swal.fire('Error', 'Role or member ID not found.', 'error');
     }
   }
 
   payFine(fineId: number): void {
     this.finesService.payFine(fineId).subscribe({
       next: () => {
-        alert('Fine paid successfully.');
+        Swal.fire('Success', 'Fine paid successfully.', 'success');
         this.ngOnInit();  // Refresh fines list after payment
       },
       error: (err) => {
-        alert(err.error.message || 'Error paying fine.');
+        Swal.fire('Error', err.error.message || 'Error paying fine.', 'error');
       }
     });
   }
