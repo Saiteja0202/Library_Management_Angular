@@ -3,22 +3,22 @@
   margin: 30px auto;
   padding: 20px;
   background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .notifications:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .notifications__title {
   font-weight: 700;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #222;
-  letter-spacing: 0.02em;
+  color: #2c3e50;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .notifications__list {
@@ -29,21 +29,22 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 16px;
-  color: #444;
+  color: #333;
   min-width: 600px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .notifications__table thead {
-  background-color: #62b965;
+  background-color: #4e54c8;
   color: white;
 }
 
 .notifications__table th,
 .notifications__table td {
-  padding: 12px 15px;
+  padding: 14px 18px;
   border: 1px solid #ddd;
   text-align: left;
-  vertical-align: middle;
 }
 
 .notifications__cell--center {
@@ -51,44 +52,42 @@
 }
 
 .notifications__cell--slno {
-  width: 60px;
+  width: 100px;
 }
 
 .notifications__cell--type {
-  width: 160px;
+  width: 200px;
 }
 
 .notifications__table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #f8f9fa;
 }
 
 .notifications__table tbody tr {
   transition: background-color 0.3s ease;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.15);
 }
 
 .notifications__table tbody tr:hover {
-  background-color: #eef6ff;
+  background-color: #eaf4ff;
   cursor: pointer;
 }
 
 .notifications__empty {
-  font-style: italic;
-  color: #999;
   text-align: center;
-  margin-top: 2rem;
   font-size: 1.1rem;
+  color: #888;
+  margin-top: 2rem;
+  font-style: italic;
 }
 
-/* Responsive */
+/* Responsive styles */
 @media (max-width: 768px) {
   .notifications {
     padding: 16px;
   }
 
   .notifications__title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .notifications__table {
@@ -97,11 +96,11 @@
   }
 
   .notifications__cell--slno {
-    width: 50px;
+    width: 80px;
   }
 
   .notifications__cell--type {
-    width: 120px;
+    width: 150px;
   }
 
   .notifications__empty {

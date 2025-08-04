@@ -1,134 +1,164 @@
-.fines {
-    max-width: 1000px;
-    margin: 30px auto;
+/* Container */
+.history-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.4s ease;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #333;
+  letter-spacing: 0.03em;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px #eee;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+thead {
+  background: #4e54c8;
+  color: #fff;
+}
+
+th, td {
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9fb;
+}
+
+tbody tr:hover {
+  background-color: #eef2ff;
+  transition: background 0.2s ease-in-out;
+}
+
+th {
+  font-weight: 600;
+}
+
+/* Status Styling */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status.paid {
+  background-color: #e8f5e9;
+  color: #43a047;
+}
+
+.status.unpaid {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+/* Button Styling */
+.action-btn {
+  padding: 6px 12px;
+  background-color: #4e54c8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #3b3fc2;
+}
+
+/* Empty state */
+.fines__empty {
+  font-style: italic;
+  color: #999;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .history-container {
     padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    box-sizing: border-box;
   }
-  
-  .fines__title {
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #222;
-    text-align: center;
-    letter-spacing: 0.02em;
-  }
-  
-  .table-responsive {
-    overflow-x: auto;
-  }
-  
-  /* Table styling */
-  .fines__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    color: #444;
+
+  table {
+    font-size: 14px;
     min-width: 600px;
   }
-  
-  .fines__table thead {
-    background-color: #62b965;
-    color: white;
+
+  th, td {
+    padding: 12px 10px;
   }
-  
-  .fines__table th,
-  .fines__table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center;
+
+  .action-btn {
+    font-size: 0.85rem;
+    padding: 6px 10px;
   }
-  
-  .fines__table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+}
+
+@media (max-width: 480px) {
+  .history-container {
+    padding: 15px 10px;
+    margin: 20px 10px;
   }
-  
-  .fines__table tbody tr:hover {
-    background-color: #eef;
+
+  h1 {
+    font-size: 1.5rem;
   }
-  
-  /* Action buttons */
-  .fines__table button {
-    padding: 6px 12px;
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    border-radius: 4px;
+
+  table {
+    font-size: 13.5px;
+    min-width: 480px;
+  }
+
+  .action-btn {
+    width: 100%;
+    padding: 8px;
     font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
-  
-  .fines__table button:disabled {
-    background-color: #aaa;
-    cursor: not-allowed;
-  }
-  
-  .fines__table button:hover:not(:disabled) {
-    background-color: #1b5e20;
-  }
-  
+
   .fines__empty {
-    font-style: italic;
-    color: #999;
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-top: 1.5rem;
   }
-  
-  /* ✅ Responsive Breakpoints */
-  @media (max-width: 768px) {
-    .fines {
-      padding: 16px;
-    }
-  
-    .fines__title {
-      font-size: 1.6rem;
-    }
-  
-    .fines__table {
-      font-size: 15px;
-    }
-  
-    .fines__table th,
-    .fines__table td {
-      padding: 10px;
-    }
-  
-    .fines__table button {
-      font-size: 0.85rem;
-      padding: 6px 10px;
-    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  @media (max-width: 480px) {
-    .fines {
-      margin: 20px 10px;
-      padding: 12px;
-    }
-  
-    .fines__title {
-      font-size: 1.4rem;
-    }
-  
-    .fines__table {
-      font-size: 14px;
-      min-width: 480px;
-    }
-  
-    .fines__table button {
-      width: 100%;
-      padding: 8px;
-      font-size: 0.9rem;
-    }
-  
-    .fines__empty {
-      font-size: 1rem;
-      margin-top: 1.5rem;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
+}

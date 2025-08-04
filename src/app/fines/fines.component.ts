@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Fine, FinesServicesService } from './fines-services.service';
-import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fines',
   templateUrl: './fines.component.html',
   styleUrls: ['./fines.component.css'],
-  imports: [NgIf, NgFor, CurrencyPipe]
+  imports: [CommonModule, CurrencyPipe]
 })
 export class FinesComponent implements OnInit {
   fines: Fine[] = [];
