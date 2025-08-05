@@ -14,6 +14,7 @@
         </div>
         <div class="button-wrapper">
           <button class="btn common-button" (click)="toggleEditMode()">Update Profile</button>
+          <button class="btn delete-button" style="margin-left: 20px;" (click)="confirmDelete()">Delete Profile</button>
         </div>
       </section>
 
@@ -35,7 +36,10 @@
           <button class="btn common-button" (click)="togglePasswordUpdate()">Update Password</button>
         </div>
       </section>
+    
+      
     </div>
+    
 
     <!-- Edit Modal -->
     <section *ngIf="isEditMode" class="modal-backdrop">
