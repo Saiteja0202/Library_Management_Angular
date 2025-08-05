@@ -47,6 +47,10 @@ export class AdminComponent {
   }
 
   logout() {
+    localStorage.removeItem('memberId');
+        localStorage.removeItem('authToken');
+    
+        this.router.navigate(['/login']);
     
   }
 

@@ -32,14 +32,24 @@ export class BookListComponent implements OnInit {
 
   getBookImage(bookName: string): string {
     const imageMap: { [key: string]: string } = {
-      'Sandy Biography': 'SandyBiography.jpg',
-      'Harry Potter Book-4': 'HarryPotter-4.jpg',
-      'Harry Potter Book-3': 'HarryPotter-3.jpg',
-      'Harry Potter Book-2': 'HarryPotter-2.jpg',
-      'Harry Potter Book-1': 'HarryPotter-1.jpg'
+      'Java': 'Java_Book.jpg',
+      'Python': 'Python_Book.jpg',
+      'Harry Potter Part 1': 'HarryPotter-1.jpg',
+    'Harry Potter Part 2': 'HarryPotter-2.jpg',
+    'JavaScript': 'JavaScript_Book.jpg',
+    'C#': '',
+    'Harry Potter Part 3': 'HarryPotter-3.jpg',
+    'Harry Potter Part 4': 'HarryPotter-4.jpg',
+    'C++': 'C++_Book.jpg',
+    'JDBC': 'JDBC_Book.jpg',
+    'Spring Boot': 'Spring_Book.jpg',
+    'Educated': 'Educated_Book.jpg',
+    'A Brief History of Time': 'A_Brief_History_of_Time_Book.jpg',
+    'The Shining': 'The_Shining_Book.jpg',
+    'To Kill a Mockingbird': 'To_Kill_a_Mockingbird_Book.jpg',
     };
-
-    return imageMap[bookName] || 'default-book.jpg';
+    
+    return imageMap[bookName] || 'Default_Book.jpg';
   }
 
   viewDetails(book: any) {
