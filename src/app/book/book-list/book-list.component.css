@@ -39,6 +39,7 @@ ul {
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 2rem;
   margin: 30px;
+
 }
 
 .book-card {
@@ -61,7 +62,7 @@ ul {
 }
 
 .book-image {
-  width: 100%;
+  width: 100wh;
   height: 200px;
   object-fit: contain; /* changed from 'cover' */
   border-radius: 10px;
