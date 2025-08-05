@@ -1,6 +1,6 @@
+<h2 class="requests-transactions__title">Requests Transactions</h2>
 
-  <h2 class="requests-transactions__title">Requests Transactions</h2>
-  <div class="requests-transactions">
+<div class="requests-transactions">
   <div class="requests-transactions__list">
     <table class="requests-transactions__table">
       <thead>
@@ -16,7 +16,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let request of requests">
-          <td>{{request.requestId}}</td>
+          <td>{{ request.requestId }}</td>
           <td>{{ request.memberId }}</td>
           <td>{{ request.memberName }}</td>
           <td>{{ request.bookId }}</td>
@@ -25,22 +25,22 @@
           <td>
             <ng-container *ngIf="request.status === 'PENDING' || request.status === 'RETURN_PENDING'; else finalStatus">
               <button
-  class="requests-transactions__btn accept"
-  (click)="acceptRequest(request.requestId,request.memberId,request.bookId)">
-  Accept
-</button>
-<button
-class="requests-transactions__btn reject"
-(click)="rejectRequest(request.requestId,request.memberId,request.bookId)">
-Reject
-</button>
+                class="requests-transactions__btn accept"
+                (click)="acceptRequest(request.requestId, request.memberId, request.bookId)">
+                Accept
+              </button>
+              <button
+                class="requests-transactions__btn reject"
+                (click)="rejectRequest(request.requestId, request.memberId, request.bookId)">
+                Reject
+              </button>
             </ng-container>
 
             <ng-template #finalStatus>
-              <span *ngIf="request.status === 'BORROWED' || request.status === 'RETURNED'" style="color: green;font-weight: bold;">
+              <span *ngIf="request.status === 'BORROWED' || request.status === 'RETURNED'" class="status--accepted">
                 Accepted
               </span>
-              <span *ngIf="request.status === 'BORROW_REJECTED' || request.status === 'RETURN_REJECTED'" style="color: red;font-weight: bold;">
+              <span *ngIf="request.status === 'BORROW_REJECTED' || request.status === 'RETURN_REJECTED'" class="status--rejected">
                 Rejected
               </span>
             </ng-template>

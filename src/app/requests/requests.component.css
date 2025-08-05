@@ -16,8 +16,9 @@
   font-weight: 700;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #222;
+  color: #2c3e50;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .requests-transactions__list {
@@ -33,7 +34,7 @@
 }
 
 .requests-transactions__table thead {
-  background-color: #62b965;
+  background-color: #4e54c8;
   color: white;
 }
 
@@ -51,11 +52,10 @@
 
 .requests-transactions__table tbody tr {
   transition: background-color 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.15);
 }
 
 .requests-transactions__table tbody tr:hover {
-  background-color: #eef6ff;
+  background-color: #eaf4ff;
   cursor: pointer;
 }
 
@@ -67,6 +67,7 @@
   margin-right: 6px;
   color: white;
   font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
@@ -76,7 +77,7 @@
 }
 
 .requests-transactions__btn.accept:hover {
-  background-color: #43a047;
+  background-color: #388e3c;
 }
 
 .requests-transactions__btn.reject {
@@ -84,28 +85,44 @@
 }
 
 .requests-transactions__btn.reject:hover {
-  background-color: #e53935;
+  background-color: #d32f2f;
 }
 
-/* Responsive */
+/* Status labels */
+.status--accepted {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.status--rejected {
+  color: #c62828;
+  font-weight: bold;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   .requests-transactions {
     padding: 16px;
   }
 
   .requests-transactions__title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .requests-transactions__table {
     font-size: 14px;
     min-width: unset;
   }
+
+  .requests-transactions__btn {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
 }
 
 @media (max-width: 480px) {
   .requests-transactions__title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 
   .requests-transactions__table th,
@@ -114,7 +131,7 @@
   }
 
   .requests-transactions__btn {
-    font-size: 13px;
-    padding: 5px 10px;
+    padding: 5px 8px;
+    font-size: 12px;
   }
 }
