@@ -40,4 +40,19 @@ export class ProfileService {
     if (!memberId) throw new Error('Member ID not found in localStorage');
     return this.http.get(`${this.baseUrl}/member/${memberId}/profile`);
   }
+
+
+  deleteProfile(): Observable<any> {
+    const memberId = this.getMemberId();
+    if (!memberId) throw new Error('Member ID not found in localStorage');
+    return this.http.delete(`${this.baseUrl}/member/${memberId}/delete`,
+      {
+        responseType: 'text' as 'json'
+      }
+    );
+  }
+
+  
+  
+  
 }

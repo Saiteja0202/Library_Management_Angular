@@ -125,4 +125,42 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+
+
+  confirmDelete() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action will permanently delete your profile.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e74c3c',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profileService.deleteProfile().subscribe({
+          next: () => {
+            Swal.fire(
+              'Deleted!',
+              'Your profile has been deleted.',
+              'success'
+            ).then(() => {
+              localStorage.clear();
+              this.router.navigate(['/registration']);
+            });
+          },
+          error: (err) => {
+            console.error('Deletion failed', err);
+            Swal.fire(
+              'Error',
+              'Failed to delete profile. Please try again later.',
+              'error'
+            );
+          }
+        });
+      }
+    });
+  }
+  
 }
