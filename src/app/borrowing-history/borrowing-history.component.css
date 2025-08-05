@@ -69,14 +69,26 @@ th {
 }
 
 .status.borrowed {
-  background-color: #ffebee;
-  color: #e53935;
+  background-color: #f3e5f5;
+  color: #8e24aa;
 }
+
+.status.borrow_rejected {
+  background-color: #fdecea;
+  color: #d32f2f;
+}
+
 
 .status.returned {
   background-color: #e8f5e9;
   color: #43a047;
 }
+
+.status.return_rejected {
+  background-color: #ffebee;
+  color: #e53935;
+}
+
 
 .filter-bar {
   display: flex;

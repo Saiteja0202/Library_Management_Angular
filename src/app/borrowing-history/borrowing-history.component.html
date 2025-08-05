@@ -4,9 +4,12 @@
     <label for="statusFilter">Filter by Status:</label>
     <select id="statusFilter" [(ngModel)]="selectedStatus" (change)="filterHistory()">
       <option value="">All</option>
-      <option value="Borrowed">Borrowed</option>
-      <option value="Returned">Returned</option>
+      <option value="BORROWED">Borrowed</option>
+      <option value="BORROW_REJECTED">Borrowed Rejected</option>
+      <option value="RETURNED">Returned</option>
+      <option value="RETURN_REJECTED">Returned Rejected</option>
     </select>
+
   </div>
   <div class="table-wrapper">
     <table>

@@ -1,39 +1,39 @@
-<h1 class="fines__title" style="display: flex; justify-content: center;">Fines</h1>
+<div class="history-container">
+  <h1>Fines</h1>
 
-<section class="fines">
-  <div *ngIf="fines.length > 0; else noFines" class="fines__list">
-    <table class="fines__table">
+  <div class="table-wrapper" *ngIf="fines.length > 0; else noFines">
+    <table>
       <thead>
         <tr>
-          <th style="text-align: center; width: 80px;">Fine ID</th>
-          <th style="text-align: center; width: 80px;">Member ID</th>
-          <th style="text-align: center; width: 80px;">Book ID</th>
-          <th style="text-align: center; width: 100px;">Amount</th>
-          <th style="text-align: center; width: 100px;">Status</th>
-          <th style="text-align: center; width: 160px;">Date</th>
-          <th *ngIf="role === 'MEMBER'" style="text-align: center; width: 100px;">Action</th>        </tr>
+          <th>Fine ID</th>
+          <th>Member ID</th>
+          <th>Book ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th *ngIf="role === 'MEMBER'">Action</th>
+        </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let fine of fines" class="fines__row">
-          <td style="text-align: center;">{{ fine.fineId }}</td>
-          <td style="text-align: center;">{{ fine.memberId }}</td>
-          <td style="text-align: center;">{{ fine.bookId }}</td>
-          <td style="text-align: center;">{{ fine.amount | currency:'INR':'symbol':'1.2-2' }}</td>
-          <td style="text-align: center;">{{ fine.fineStatus }}</td>
-          <td style="text-align: center;">{{ fine.transactionDate }}</td>
-          <td *ngIf="role === 'MEMBER'" style="text-align: center;">
+        <tr *ngFor="let fine of fines">
+          <td>{{ fine.fineId }}</td>
+          <td>{{ fine.memberId }}</td>
+          <td>{{ fine.bookId }}</td>
+          <td>{{ fine.amount | currency:'INR':'symbol':'1.2-2' }}</td>
+          <td>
+            <span class="status" [ngClass]="fine.fineStatus.toLowerCase()">
+              {{ fine.fineStatus }}
+            </span>
+          </td>
+          <td>{{ fine.transactionDate }}</td>
+          <td *ngIf="role === 'MEMBER'">
             <ng-container *ngIf="fine.fineStatus !== 'PAID'; else paidText">
-              <button (click)="payFine(fine.fineId)">
-                Pay
-              </button>
+              <button class="action-btn" (click)="payFine(fine.fineId)">Pay</button>
             </ng-container>
             <ng-template #paidText>
               <span style="color: green; font-weight: bold;">PAID</span>
             </ng-template>
           </td>
-          
-          
-          
         </tr>
       </tbody>
     </table>
@@ -42,4 +42,4 @@
   <ng-template #noFines>
     <p class="fines__empty">No fines found for this member.</p>
   </ng-template>
-</section>
+</div>

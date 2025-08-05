@@ -13,7 +13,7 @@
       <tbody>
         <tr *ngFor="let note of notifications; let i = index" class="notifications__row">
           <td class="notifications__cell--center">{{ note.memberId }}</td>
-          <td>{{ getMessageType(note.message) }}</td>
+          <td class="notifications__cell--type">{{ getMessageType(note.message) }}</td>
           <td>{{ getMessageContent(note.message) }}</td>
         </tr>
       </tbody>
