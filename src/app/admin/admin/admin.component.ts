@@ -37,6 +37,7 @@ export class AdminComponent {
       .subscribe(() => {
         const updatedRoute = this.router.url;
         this.searchVisible = updatedRoute === '/admin/book-lists';
+        this.role = localStorage.getItem('role');
       });
   }
   

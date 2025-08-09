@@ -1,6 +1,6 @@
 <div class="profile-container">
   <div class="main-container">
-    <h1 class="profile-heading">Hi!! {{ profile.name }}</h1>
+    <h1 class="profile-heading">Hello {{ profile.name }}</h1>
 
     <div class="profile-sections">
       <!-- Member Information -->
@@ -22,13 +22,22 @@
       <section class="profile-card alternate">
         <h2 class="section-title">Other Information</h2>
         <p><strong>Borrowing Limit:</strong> {{ profile.borrowingLimit }} Books</p>
-        <p>
+        <p>  
           <strong>Membership Status:</strong>
-          <span [ngClass]="{ 'highlight': profile.membershipStatus === 'Prime' }">
-            {{ profile.membershipStatus }}
+          <span [ngClass]="{ 'prime-badge': profile.membershipStatus === 'PRIME' }">
+           {{ profile.membershipStatus }}
           </span>
+          
+          
         </p>
-        <p *ngIf="profile.membershipStatus === 'Prime'">
+        
+        <div *ngIf="profile.membershipStatus !== 'PRIME'" class="prime-upgrade-box">
+          <p>Upgrade to <strong style="color: red;">Prime</strong> and get the benefits of <strong style="color: red;">+10 borrowing limit</strong>.</p>
+          <button class="btn upgrade-button" (click)="upgradeToPrime()">Upgrade</button>
+        </div>
+        
+
+        <p *ngIf="profile.membershipStatus === 'PRIME'">
           <strong>Membership Expiry:</strong> {{ profile.membershipExpiryDate }}
         </p>
         <p><strong>Username:</strong> {{ profile.username }}</p>

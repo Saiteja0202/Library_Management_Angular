@@ -52,6 +52,15 @@ export class ProfileService {
     );
   }
 
+  activateMembership(months: number): Observable<any> {
+    const memberId = this.getMemberId();
+    if (!memberId) throw new Error('Member ID not found in localStorage');
+    return this.http.put(`${this.baseUrl}/member/${memberId}/activate?months=${months}`, null, {
+      responseType: 'text' as 'json'
+    });
+  }
+  
+
   
   
   

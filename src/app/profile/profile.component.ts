@@ -56,6 +56,7 @@ export class ProfileComponent implements OnInit {
       next: data => {
         console.log(data);
         this.profile = data;
+        data.membershipStatus;
       },
       error: err => console.error('Failed to fetch profile', err)
     });
@@ -162,5 +163,45 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+  upgradeToPrime(): void {
+    Swal.fire({
+      title: 'Upgrade to Prime?',
+      text: 'Do you want to upgrade to Prime and get +10 borrowing limit?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Upgrade',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#4e54c8',
+      cancelButtonColor: '#6c757d'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.profileService.activateMembership(1).subscribe({
+          next: (res) => {
+            // Refresh profile data
+            this.profileService.getProfile().subscribe({
+              next: updated => {
+                this.profile = updated;
+                Swal.fire(
+                  'Upgraded!',
+                  `You have successfully upgraded to Prime. Your borrowing limit is ${this.profile.borrowingLimit}`,
+                  'success'
+                );
+              },
+              error: err => {
+                console.error('Failed to refresh profile:', err);
+                Swal.fire('Error', 'Upgraded, but failed to fetch new profile data.', 'warning');
+              }
+            });
+          },
+          error: err => {
+            console.error('Activation failed:', err);
+            Swal.fire('Error', 'Failed to upgrade to Prime.', 'error');
+          }
+        });
+      }
+    });
+  }
+  
   
 }

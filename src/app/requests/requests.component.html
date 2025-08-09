@@ -1,6 +1,7 @@
-<h2 class="requests-transactions__title">Requests Transactions</h2>
 
 <div class="requests-transactions">
+  <h2 class="requests-transactions__title">Requests Transactions</h2>
+
   <div class="requests-transactions__list">
     <table class="requests-transactions__table">
       <thead>
@@ -24,18 +25,23 @@
           <td>{{ request.status }}</td>
           <td>
             <ng-container *ngIf="request.status === 'PENDING' || request.status === 'RETURN_PENDING'; else finalStatus">
-              <button
-                class="requests-transactions__btn accept"
-                (click)="acceptRequest(request.requestId, request.memberId, request.bookId)">
-                Accept
-              </button>
-              <button
-                class="requests-transactions__btn reject"
-                (click)="rejectRequest(request.requestId, request.memberId, request.bookId)">
-                Reject
-              </button>
+              <ng-container *ngIf="request.actionTaken !== 'NO_AVAILABLE_BOOKS'; else unavailableMessage">
+                <button
+                  class="requests-transactions__btn accept"
+                  (click)="acceptRequest(request.requestId, request.memberId, request.bookId)">
+                  Accept
+                </button>
+                <button
+                  class="requests-transactions__btn reject"
+                  (click)="rejectRequest(request.requestId, request.memberId, request.bookId)">
+                  Reject
+                </button>
+              </ng-container>
+              <ng-template #unavailableMessage>
+                <span class="status--unavailable">No available books</span>
+              </ng-template>
             </ng-container>
-
+          
             <ng-template #finalStatus>
               <span *ngIf="request.status === 'BORROWED' || request.status === 'RETURNED'" class="status--accepted">
                 Accepted
@@ -45,6 +51,7 @@
               </span>
             </ng-template>
           </td>
+          
         </tr>
       </tbody>
     </table>

@@ -1,11 +1,13 @@
-<h1 class="notifications__title">Notifications</h1>
 
 <section class="notifications">
+  <h1 class="notifications__title">Notifications</h1>
+
   <div *ngIf="notifications.length > 0; else noNotifications" class="notifications__list">
     <table class="notifications__table">
       <thead>
         <tr>
           <th class="notifications__cell--center notifications__cell--slno">Member ID</th>
+          <th>Book ID</th>
           <th class="notifications__cell--type">Message Type</th>
           <th>Message</th>
         </tr>
@@ -13,6 +15,7 @@
       <tbody>
         <tr *ngFor="let note of notifications; let i = index" class="notifications__row">
           <td class="notifications__cell--center">{{ note.memberId }}</td>
+          <td>{{note.book.bookId}}</td>
           <td class="notifications__cell--type">{{ getMessageType(note.message) }}</td>
           <td>{{ getMessageContent(note.message) }}</td>
         </tr>
@@ -21,6 +24,6 @@
   </div>
 
   <ng-template #noNotifications>
-    <p class="notifications__empty">No notifications available.</p>
+    <p class="notifications__empty">No Notifications Available.</p>
   </ng-template>
 </section>
