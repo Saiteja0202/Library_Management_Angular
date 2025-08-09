@@ -19,7 +19,7 @@
           <td>{{ fine.fineId }}</td>
           <td>{{ fine.memberId }}</td>
           <td>{{ fine.bookId }}</td>
-          <td>{{ fine.amount | currency:'INR':'symbol':'1.2-2' }}</td>
+          <td>{{ fine.amount | currency:'INR' }}</td>
           <td>
             <span class="status" [ngClass]="fine.fineStatus.toLowerCase()">
               {{ fine.fineStatus }}
@@ -40,6 +40,6 @@
   </div>
 
   <ng-template #noFines>
-    <p class="fines__empty">No fines found for this member.</p>
+    <p class="fines__empty">No Fines Available .</p>
   </ng-template>
 </div>

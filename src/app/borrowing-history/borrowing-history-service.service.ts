@@ -9,7 +9,8 @@ export interface BorrowingTransaction {
   borrowDate: string;
   returnDate: string;
   status: string;
-  book: { bookId: number } | null;
+  book: { bookId: number ,bookName:string} | null;
+ 
   memberId:number;
   memberName:string;
 }

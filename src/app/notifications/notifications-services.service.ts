@@ -7,7 +7,13 @@ export interface LibraryNotification {
   dateSent: string;
   message: string;
   overDues: number;
-  bookId?: number;
+  book: {
+    bookId: number;
+    bookName: string;
+    author: string;
+    genre: string;
+    yearPublished: number;
+  };
   fineId?: number;
   memberId: number;
 }

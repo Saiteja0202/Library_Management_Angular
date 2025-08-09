@@ -32,7 +32,6 @@ export class BookListsComponent implements OnInit, OnDestroy {
   role: string | null = null;
   memberId: string | null = null;
 
-  // Store statuses separately, indexed by bookId
   bookStatuses: { [bookId: number]: string } = {};
 
   bookCoverImages: { [key: number]: string } = {
@@ -50,7 +49,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     12: 'Educated_Book.jpg',
     13: 'A_Brief_History_of_Time_Book.jpg',
     14: 'The_Shining_Book.jpg',
-    15: 'To_Kill_a_Mockingbird_Book.jpg',
+    16: 'To_Kill_a_Mockingbird_Book.jpg',
   };
   private searchSubscription!: Subscription;
 
@@ -242,7 +241,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error(err);
-        Swal.fire('Error', 'Error deleting book.', 'error');
+        Swal.fire('Error', 'Error deleting book. Because the book has transactions', 'error');
       }
     });
   }

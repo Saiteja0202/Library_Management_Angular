@@ -31,30 +31,52 @@ export class RequestsComponent implements OnInit {
   }
 
   // Accept Request
-  acceptRequest(requestId: number, memberId: number, bookId: number): void {
-    this.requestService.acceptRequest(requestId, memberId, bookId).subscribe({
-      next: () => {
-        Swal.fire('Success', 'Request accepted successfully.', 'success');
-        this.loadRequests();
-      },
-      error: (err) => {
-        const errorMessage = err?.error?.message || 'An error occurred.';
-        Swal.fire('Error', 'Failed to accept request: ' + errorMessage, 'error');
-      }
-    });
-  }
+  // Accept Request
+acceptRequest(requestId: number, memberId: number, bookId: number): void {
+  this.requestService.acceptRequest(requestId, memberId, bookId).subscribe({
+    next: (res) => {
+      const message: string = res.message?.toLowerCase() || '';
 
-  // Reject Request
-  rejectRequest(requestId: number, memberId: number, bookId: number): void {
-    this.requestService.rejectRequest(requestId, memberId, bookId).subscribe({
-      next: () => {
-        Swal.fire('Success', 'Request rejected successfully.', 'success');
-        this.loadRequests();
-      },
-      error: (err) => {
-        const errorMessage = err?.error?.message || 'An error occurred.';
-        Swal.fire('Error', 'Failed to reject request: ' + errorMessage, 'error');
+      if (message.includes('no available books')) {
+        Swal.fire('Info', res.message, 'info');
+        // Mark this row as unavailable
+        this.requests = this.requests.map(r =>
+          r.requestId === requestId ? { ...r, actionTaken: 'NO_AVAILABLE_BOOKS' } : r
+        );
+      } else {
+        Swal.fire('Success', res.message, 'success');
+        this.loadRequests(); // Normal flow
       }
-    });
-  }
+    },
+    error: (err) => {
+      const errorMessage = err?.error?.message || 'An error occurred.';
+      Swal.fire('Error', 'Failed to accept request: ' + errorMessage, 'error');
+    }
+  });
+}
+
+// Reject Request
+rejectRequest(requestId: number, memberId: number, bookId: number): void {
+  this.requestService.rejectRequest(requestId, memberId, bookId).subscribe({
+    next: (res) => {
+      const message: string = res.message?.toLowerCase() || '';
+
+      if (message.includes('no available books')) {
+        Swal.fire('Info', res.message, 'info');
+        // Mark this row as unavailable
+        this.requests = this.requests.map(r =>
+          r.requestId === requestId ? { ...r, actionTaken: 'NO_AVAILABLE_BOOKS' } : r
+        );
+      } else {
+        Swal.fire('Success', res.message, 'success');
+        this.loadRequests(); // Normal flow
+      }
+    },
+    error: (err) => {
+      const errorMessage = err?.error?.message || 'An error occurred.';
+      Swal.fire('Error', 'Failed to reject request: ' + errorMessage, 'error');
+    }
+  });
+}
+
 }

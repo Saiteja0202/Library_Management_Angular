@@ -11,14 +11,15 @@
     </select>
 
   </div>
-  <div class="table-wrapper">
+  <div class="table-wrapper" *ngIf="filteredBorrowingHistory.length > 0; else noHistory">
     <table>
       <thead>
         <tr>
           <th>Transaction ID</th>
-          <th>Member ID</th>
+      
           <th>Member Name</th>
           <th>Book ID</th>
+          <th>Book Name</th>
           <th>Borrow Date</th>
           <th>Return Date</th>
           <th>Status</th>
@@ -26,10 +27,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let txn of filteredBorrowingHistory">
-          <td>{{ txn.transactionId }}</td>
-          <td>{{ txn.memberId }}</td>
+          <td>{{ txn.transactionId }}</td>  
           <td>{{ txn.memberName }}</td>
           <td>{{ txn.book?.bookId }}</td>
+          <td>{{ txn.book?.bookName }}</td>
           <td>{{ txn.borrowDate }}</td>
           <td>{{ txn.returnDate || '-' }}</td>
           <td>
@@ -41,4 +42,7 @@
       </tbody>
     </table>
   </div>
+  <ng-template #noHistory>
+    <p class="history__empty">No Borrowing History Available.</p>
+  </ng-template>
 </div>

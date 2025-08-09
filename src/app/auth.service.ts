@@ -27,10 +27,12 @@ export class AuthService {
   saveToken(username: string, password: string): void {
     const token = btoa(`${username}:${password}`);
     localStorage.setItem('authToken', token);
+    sessionStorage.setItem('authToken', token);
   }
 
   getToken(): string | null {
     return localStorage.getItem('authToken');
+    
   }
 
   isLoggedIn(): boolean{
