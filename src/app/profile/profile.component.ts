@@ -141,29 +141,36 @@ export class ProfileComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.profileService.deleteProfile().subscribe({
-          next: () => {
-            Swal.fire(
-              'Deleted!',
-              'Your profile has been deleted.',
-              'success'
-            ).then(() => {
-              localStorage.clear();
-              this.router.navigate(['/registration']);
-            });
+          next: (res: any) => {
+            const message = res?.toString() || '';
+  
+            if (message.includes('existing borrowing transactions')) {
+              // Backend blocked deletion
+              Swal.fire(
+                'Cannot Delete',
+                'You cannot delete your profile while you have active borrowing transactions.',
+                'error'
+              );
+            } else if (message.includes('successfully')) {
+              // Deletion successful
+              Swal.fire('Deleted!', 'Your profile has been deleted.', 'success').then(() => {
+                localStorage.clear();
+                this.router.navigate(['/registration']);
+              });
+            } else {
+              // Unknown response
+              Swal.fire('Error', 'Unexpected response from server.', 'error');
+            }
           },
           error: (err) => {
             console.error('Deletion failed', err);
-            Swal.fire(
-              'Error',
-              'Failed to delete profile. Please try again later.',
-              'error'
-            );
+            Swal.fire('Error', 'Failed to delete profile. Please try again later.', 'error');
           }
         });
       }
     });
   }
-
+  
   upgradeToPrime(): void {
     Swal.fire({
       title: 'Upgrade to Prime?',

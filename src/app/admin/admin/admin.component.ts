@@ -31,7 +31,7 @@ export class AdminComponent {
     this.role = localStorage.getItem('role');
     const currentRoute = this.router.url;
     this.searchVisible = currentRoute === '/admin/book-lists';
-  
+    
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
