@@ -29,7 +29,7 @@ interface Profile {
 export class ProfileComponent implements OnInit {
   isEditMode = false;
   isPasswordUpdateVisible = false;
-
+  role:string|null=null;
   profile: Profile = {
     name: '',
     email: '',
@@ -52,9 +52,11 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private profileService: ProfileService) {}
 
   ngOnInit(): void {
+    this.role=localStorage.getItem('role');
     this.profileService.getProfile().subscribe({
       next: data => {
         console.log(data);
+        console.log(this.role);
         this.profile = data;
         data.membershipStatus;
       },
@@ -141,29 +143,34 @@ export class ProfileComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.profileService.deleteProfile().subscribe({
-          next: () => {
-            Swal.fire(
-              'Deleted!',
-              'Your profile has been deleted.',
-              'success'
-            ).then(() => {
-              localStorage.clear();
-              this.router.navigate(['/registration']);
-            });
+          next: (res: any) => {
+            const message = res?.toString() || '';
+  
+            if (message.includes('existing borrowing transactions')) {
+
+              Swal.fire(
+                'Cannot Delete',
+                'You cannot delete your profile while you have active borrowing transactions.',
+                'error'
+              );
+            } else if (message.includes('successfully')) {
+              Swal.fire('Deleted!', 'Your profile has been deleted.', 'success').then(() => {
+                localStorage.clear();
+                this.router.navigate(['/registration']);
+              });
+            } else {
+              Swal.fire('Error', 'Unexpected response from server.', 'error');
+            }
           },
           error: (err) => {
             console.error('Deletion failed', err);
-            Swal.fire(
-              'Error',
-              'Failed to delete profile. Please try again later.',
-              'error'
-            );
+            Swal.fire('Error', 'Failed to delete profile. Please try again later.', 'error');
           }
         });
       }
     });
   }
-
+  
   upgradeToPrime(): void {
     Swal.fire({
       title: 'Upgrade to Prime?',

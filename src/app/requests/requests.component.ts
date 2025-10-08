@@ -19,7 +19,7 @@ export class RequestsComponent implements OnInit {
     this.loadRequests();
   }
 
-  // Load all borrowing transactions (admin requests)
+
   loadRequests(): void {
     this.requestService.getAllTransactions().subscribe({
       next: (data) => {
@@ -31,7 +31,7 @@ export class RequestsComponent implements OnInit {
   }
 
   // Accept Request
-  // Accept Request
+
 acceptRequest(requestId: number, memberId: number, bookId: number): void {
   this.requestService.acceptRequest(requestId, memberId, bookId).subscribe({
     next: (res) => {
@@ -39,13 +39,13 @@ acceptRequest(requestId: number, memberId: number, bookId: number): void {
 
       if (message.includes('no available books')) {
         Swal.fire('Info', res.message, 'info');
-        // Mark this row as unavailable
+
         this.requests = this.requests.map(r =>
           r.requestId === requestId ? { ...r, actionTaken: 'NO_AVAILABLE_BOOKS' } : r
         );
       } else {
         Swal.fire('Success', res.message, 'success');
-        this.loadRequests(); // Normal flow
+        this.loadRequests(); 
       }
     },
     error: (err) => {
@@ -63,13 +63,13 @@ rejectRequest(requestId: number, memberId: number, bookId: number): void {
 
       if (message.includes('no available books')) {
         Swal.fire('Info', res.message, 'info');
-        // Mark this row as unavailable
+
         this.requests = this.requests.map(r =>
           r.requestId === requestId ? { ...r, actionTaken: 'NO_AVAILABLE_BOOKS' } : r
         );
       } else {
         Swal.fire('Success', res.message, 'success');
-        this.loadRequests(); // Normal flow
+        this.loadRequests(); 
       }
     },
     error: (err) => {
