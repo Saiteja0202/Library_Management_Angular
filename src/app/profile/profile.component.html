@@ -31,10 +31,12 @@
           
         </p>
         
+       <div *ngIf="role === 'MEMBER'">
         <div *ngIf="profile.membershipStatus !== 'PRIME'" class="prime-upgrade-box">
           <p>Upgrade to <strong style="color: red;">Prime</strong> and get the benefits of <strong style="color: red;">+10 borrowing limit</strong>.</p>
           <button class="btn upgrade-button" (click)="upgradeToPrime()">Upgrade</button>
         </div>
+       </div>
         
 
         <p *ngIf="profile.membershipStatus === 'PRIME'">

@@ -29,7 +29,7 @@ interface Profile {
 export class ProfileComponent implements OnInit {
   isEditMode = false;
   isPasswordUpdateVisible = false;
-
+  role:string|null=null;
   profile: Profile = {
     name: '',
     email: '',
@@ -52,9 +52,11 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private profileService: ProfileService) {}
 
   ngOnInit(): void {
+    this.role=localStorage.getItem('role');
     this.profileService.getProfile().subscribe({
       next: data => {
         console.log(data);
+        console.log(this.role);
         this.profile = data;
         data.membershipStatus;
       },
@@ -145,20 +147,18 @@ export class ProfileComponent implements OnInit {
             const message = res?.toString() || '';
   
             if (message.includes('existing borrowing transactions')) {
-              // Backend blocked deletion
+
               Swal.fire(
                 'Cannot Delete',
                 'You cannot delete your profile while you have active borrowing transactions.',
                 'error'
               );
             } else if (message.includes('successfully')) {
-              // Deletion successful
               Swal.fire('Deleted!', 'Your profile has been deleted.', 'success').then(() => {
                 localStorage.clear();
                 this.router.navigate(['/registration']);
               });
             } else {
-              // Unknown response
               Swal.fire('Error', 'Unexpected response from server.', 'error');
             }
           },

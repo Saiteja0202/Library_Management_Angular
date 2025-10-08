@@ -20,7 +20,7 @@ export class LoginComponent {
       next: (response: { [key: string]: string }) => {
         localStorage.setItem('authToken', response['token']);
         localStorage.setItem('memberId', response['memberId']);
-        localStorage.setItem('role', response['role']); 
+        localStorage.setItem('role', response['role']);
   
         if (response['role'] === 'ADMIN') {
           this.router.navigate(['/admin']);
