@@ -24,9 +24,10 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.errorMessage = '';
-    this.http.post('http://localhost:4321/member/register', this.member, {
+    this.http.post('https://truthful-gentleness.up.railway.app/member/register', this.member, {
       responseType: 'text'
     })
+    
     .subscribe({
       next: () => {
         Swal.fire('Success', 'Registration successful!', 'success');
