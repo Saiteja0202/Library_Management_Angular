@@ -24,7 +24,7 @@ export class RegistrationComponent {
 
   onSubmit() {
     this.errorMessage = '';
-    this.http.post('https://truthful-gentleness.up.railway.app/member/register', this.member, {
+    this.http.post('https://librarybackendtest-production.up.railway.app/member/register', this.member, {
       responseType: 'text'
     })
     
