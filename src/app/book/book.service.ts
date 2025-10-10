@@ -7,7 +7,7 @@ import { Book } from './book.model';
   providedIn: 'root',
 })
 export class BookService {
-  private baseUrl = 'http://localhost:4321/books';
+  private baseUrl = 'https://librarymanagementsystemlive-production.up.railway.app/books';
 
   constructor(private http: HttpClient) {}
 
