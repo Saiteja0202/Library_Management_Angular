@@ -49,7 +49,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     12: 'Educated_Book.jpg',
     13: 'A_Brief_History_of_Time_Book.jpg',
     14: 'The_Shining_Book.jpg',
-    25: 'To_Kill_a_Mockingbird_Book.jpg',
+    15: 'To_Kill_a_Mockingbird_Book.jpg',
   };
   private searchSubscription!: Subscription;
 
