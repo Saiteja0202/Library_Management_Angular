@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RequestsServiceService {
 
-  private apiUrl = 'http://localhost:4321/admin'; // Base URL for admin APIs
+  private apiUrl = 'https://librarymanagementsystemlive-production.up.railway.app/admin'; // Base URL for admin APIs
 
   constructor(private http: HttpClient) { }
 

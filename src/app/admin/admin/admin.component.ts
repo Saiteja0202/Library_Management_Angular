@@ -56,7 +56,7 @@ export class AdminComponent {
   }
 
   fetchBooks() {
-    this.http.get('http://localhost:4321/books/get-books').subscribe(data => {
+    this.http.get('https://librarymanagementsystemlive-production.up.railway.app/books/get-books').subscribe(data => {
       
       this.books = data as any[];
     this.filteredBooks = this.books;

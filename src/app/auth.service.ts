@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:4321/login';
+  private apiUrl = 'https://librarymanagementsystemlive-production.up.railway.app/login';
 
   constructor(private http: HttpClient) {}
 
@@ -16,7 +16,7 @@ export class AuthService {
     console.log("yeah");
 
     return this.http.post<{ [key: string]: string }>(
-      'http://localhost:4321/login',
+      'https://librarymanagementsystemlive-production.up.railway.app/login',
       body
     );
   }

@@ -23,7 +23,7 @@ export interface LibraryNotification {
 })
 export class NotificationsService {
 
-  private baseUrl = 'http://localhost:4321/notifications';
+  private baseUrl = 'https://librarymanagementsystemlive-production.up.railway.app/notifications';
 
   constructor(private http: HttpClient) {}
 
