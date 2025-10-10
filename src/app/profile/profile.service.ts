@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'http://localhost:4321';
+  private baseUrl = 'https://librarymanagementsystemlive-production.up.railway.app';
 
   constructor(private http: HttpClient) {}
 

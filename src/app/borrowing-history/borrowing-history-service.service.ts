@@ -20,8 +20,8 @@ export interface BorrowingTransaction {
 })
 
 export class BorrowingHistoryServiceService {
-  private apiUrl = 'http://localhost:4321/member'; 
-  private apiUrl1 = 'http://localhost:4321/books'; 
+  private apiUrl = 'https://librarymanagementsystemlive-production.up.railway.app/member'; 
+  private apiUrl1 = 'https://librarymanagementsystemlive-production.up.railway.app/books'; 
   constructor(private http: HttpClient) {}
 
   getTransactionsByMemberId(memberId: number): Observable<BorrowingTransaction[]> {

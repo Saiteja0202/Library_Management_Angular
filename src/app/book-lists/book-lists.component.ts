@@ -91,14 +91,14 @@ export class BookListsComponent implements OnInit, OnDestroy {
   }
 
   fetchBooks() {
-    this.http.get<Book[]>('http://localhost:4321/books/get-books').subscribe(data => {
+    this.http.get<Book[]>('https://librarymanagementsystemlive-production.up.railway.app/books/get-books').subscribe(data => {
       this.books = data;
       this.filteredBooks = data;
     });
   }
 
   fetchBorrowedBooks(memberId: number) {
-    this.http.get<any[]>(`http://localhost:4321/books/get-borrowed-books/${memberId}`)
+    this.http.get<any[]>(`https://librarymanagementsystemlive-production.up.railway.app/books/get-borrowed-books/${memberId}`)
       .subscribe({
         next: (data) => {
           this.borrowedBookIds = data.map(book => book.bookId);
@@ -139,7 +139,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     }
 
     this.http.post(
-      `http://localhost:4321/books/borrow/${this.memberId}/${bookId}`,
+      `https://librarymanagementsystemlive-production.up.railway.app/books/borrow/${this.memberId}/${bookId}`,
       {},
       { observe: 'response', responseType: 'text' }
     ).subscribe({
@@ -167,7 +167,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
   openUpdateDialog(bookId: number) {
     this.updatingBookId = bookId;
 
-    this.http.get<Book>(`http://localhost:4321/books/get-book-by-id/${bookId}`).subscribe(book => {
+    this.http.get<Book>(`https://librarymanagementsystemlive-production.up.railway.app/books/get-book-by-id/${bookId}`).subscribe(book => {
       this.updateBookModel = {
         bookName: book.bookName,
         author: book.author,
@@ -199,7 +199,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     };
 
     this.http.put(
-      `http://localhost:4321/books/admin/update-book/${this.updatingBookId}`,
+      `https://librarymanagementsystemlive-production.up.railway.app/books/admin/update-book/${this.updatingBookId}`,
       updatedBook,
       { responseType: 'text' }
     ).subscribe({
@@ -232,7 +232,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
 
   deleteBook(bookId: number) {
     this.http.delete(
-      `http://localhost:4321/books/admin/delete-by-id/${bookId}`,
+      `https://librarymanagementsystemlive-production.up.railway.app/books/admin/delete-by-id/${bookId}`,
       { responseType: 'text' }
     ).subscribe({
       next: (res) => {
@@ -258,7 +258,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
 
   addBook() {
     this.http.post(
-      'http://localhost:4321/books/admin/add',
+      'https://librarymanagementsystemlive-production.up.railway.app/books/admin/add',
       this.addBookModel,
       { responseType: 'text' }
     ).subscribe({
@@ -282,7 +282,7 @@ export class BookListsComponent implements OnInit, OnDestroy {
     }
 
     this.http.post(
-      `http://localhost:4321/books/return/${this.memberId}/${bookId}`,
+      `https://librarymanagementsystemlive-production.up.railway.app/books/return/${this.memberId}/${bookId}`,
       {},
       { responseType: 'text' }
     ).subscribe({

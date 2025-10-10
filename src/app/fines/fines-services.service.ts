@@ -18,7 +18,7 @@ export interface Fine {
 })
 export class FinesServicesService {
 
-  private baseUrl = 'http://localhost:4321/fines';
+  private baseUrl = 'https://librarymanagementsystemlive-production.up.railway.app/fines';
 
   constructor(private http: HttpClient) {}
 
