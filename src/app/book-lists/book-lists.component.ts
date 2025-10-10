@@ -35,21 +35,21 @@ export class BookListsComponent implements OnInit, OnDestroy {
   bookStatuses: { [bookId: number]: string } = {};
 
   bookCoverImages: { [key: number]: string } = {
-    2: 'Java_Book.jpg',
-    1: 'Python_Book.jpg',
-    3: 'HarryPotter-1.jpg',
-    4: 'HarryPotter-2.jpg',
-    5: 'JavaScript_Book.jpg',
-    6: '',
-    7: 'HarryPotter-3.jpg',
-    8: 'HarryPotter-4.jpg',
-    9: 'C++_Book.jpg',
-    10: 'JDBC_Book.jpg',
-    11: 'Spring_Book.jpg',
-    12: 'Educated_Book.jpg',
-    13: 'A_Brief_History_of_Time_Book.jpg',
-    14: 'The_Shining_Book.jpg',
-    16: 'To_Kill_a_Mockingbird_Book.jpg',
+    6: 'Java_Book.jpg',
+    7: 'Python_Book.jpg',
+    8: 'HarryPotter-1.jpg',
+    9: 'HarryPotter-2.jpg',
+    10: 'JavaScript_Book.jpg',
+    11: '',
+    12: 'HarryPotter-3.jpg',
+    13: 'HarryPotter-4.jpg',
+    14: 'C++_Book.jpg',
+    15: 'JDBC_Book.jpg',
+    16: 'Spring_Book.jpg',
+    17: 'Educated_Book.jpg',
+    18: 'A_Brief_History_of_Time_Book.jpg',
+    19: 'The_Shining_Book.jpg',
+    20: 'To_Kill_a_Mockingbird_Book.jpg',
   };
   private searchSubscription!: Subscription;
 
